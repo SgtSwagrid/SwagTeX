@@ -1,6 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{SwagTex-explanations}
 
+\RequirePackage{SwagTeX/modules/colours}
+
+\def\mark#1{\col{graph}{(#1)}}
+\newcommand {\marked} [2] { \overset{\mark{#2}}{#1} }
+
 % Relations
 
 \newcommand {\eqwhy} [1] { \marked{=}{#1} }

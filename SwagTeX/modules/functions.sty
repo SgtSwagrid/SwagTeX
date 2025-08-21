@@ -33,6 +33,12 @@
 \newcommand {\Phiof} [2] [] { \bijectionof{\bPhi[#1]}{#2} } % Phi applied to some element.
 \newcommand {\Psiof} [2] [] { \bijectionof{\bPsi[#1]}{#2} } % Psi applied to some element.
 
+\newcommand {\congby} [1] { \overset{#1}{\cong} } % Congruency with explicit bijection.
+\newcommand {\congphi} { \congby{\bphi} }
+\newcommand {\congpsi} { \congby{\bpsi} }
+\newcommand {\congPhi} { \congby{\bPhi} }
+\newcommand {\congPsi} { \congby{\bPsi} }
+
 % Weights
 
 \newcommand {\weight} [1] [] { \aux{\lambda_{#1}} } % Generic factor (lambda).
@@ -71,7 +77,7 @@
 \newcommand {\definj} [3] { \function{#1} : \typeinj{#2}{#3} } % Injective function definition.
 \newcommand {\defsurj} [3] { \function{#1} : \typesurj{#2}{#3} } % Surjective function definition.
 \newcommand {\defbij} [3] { \function{#1} : \typebij{#2}{#3} } % Bijective function definition.
-\newcommand {\defparfn} [3] { \function{#1} : \typepar{#2}{#3} } % Partial function definition.
+\newcommand {\defparfn} [3] { \function{#1} : \typeparfn{#2}{#3} } % Partial function definition.
 
 % Domain and rangle
 

@@ -130,31 +130,21 @@
 \newcommand {\vhp} [1] [] { \vertex{\hat{v}_{#1}'} }
 \newcommand {\vhpp} [1] [] { \vertex{\hat{v}_{#1}''} }
 
+\newcommand {\us} [2] [1] { \setbtw{\u[#1]}{\u[#2]} }
+\newcommand {\ups} [2] [1] { \setbtw{\up[#1]}{\up[#2]} }
+\newcommand {\upps} [2] [1] { \setbtw{\upp[#1]}{\upp[#2]} }
+\newcommand {\uhs} [2] [1] { \setbtw{\uh[#1]}{\uh[#2]} }
+\newcommand {\uhps} [2] [1] { \setbtw{\uhp[#1]}{\uhp[#2]} }
+\newcommand {\uhpps} [2] [1] { \setbtw{\uhpp[#1]}{\uhpp[#2]} }
+
+\newcommand {\vs} [2] [1] { \setbtw{\v[#1]}{\v[#2]} }
+\newcommand {\vps} [2] [1] { \setbtw{\vp[#1]}{\vp[#2]} }
+\newcommand {\vpps} [2] [1] { \setbtw{\vpp[#1]}{\vpp[#2]} }
+\newcommand {\vhs} [2] [1] { \setbtw{\vh[#1]}{\vh[#2]} }
+\newcommand {\vhps} [2] [1] { \setbtw{\vhp[#1]}{\vhp[#2]} }
+\newcommand {\vhpps} [2] [1] { \setbtw{\vhpp[#1]}{\vhpp[#2]} }
+
 \newcommand {\uv} [1] [] { \u[#1], \v[#1] }
-
-% Vertex containments
-
-\newcommand {\uinV} [1] [] { \u[#1] \in \V }
-\newcommand {\upinV} [1] [] { \up[#1] \in \V }
-\newcommand {\uppinV} [1] [] { \upp[#1] \in \V }
-\newcommand {\uhinV} [1] [] { \uh[#1] \in \V }
-\newcommand {\uhpinV} [1] [] { \uhp[#1] \in \V }
-\newcommand {\uhppinV} [1] [] { \uhpp[#1] \in \V }
-
-\newcommand {\vinV} [1] [] { \v[#1] \in \V }
-\newcommand {\vpinV} [1] [] { \vp[#1] \in \V }
-\newcommand {\vppinV} [1] [] { \vpp[#1] \in \V }
-\newcommand {\vhinV} [1] [] { \vh[#1] \in \V }
-\newcommand {\vhpinV} [1] [] { \vhp[#1] \in \V }
-\newcommand {\vhppinV} [1] [] { \vhpp[#1] \in \V }
-
-\newcommand {\uinVh} [1] [] { \u[#1] \in \Vh }
-\newcommand {\uinVhc} [1] [] { \u[#1] \in \Vhc }
-\newcommand {\vinVh} [1] [] { \v[#1] \in \Vh }
-\newcommand {\vinVhc} [1] [] { \v[#1] \in \Vhc }
-
-\newcommand {\uvinV} [1] [] { \uv[#1] \in \V }
-\newcommand {\uvinVh} [1] [] { \uv[#1] \in \Vh }
 
 % Edge sets
 
@@ -166,6 +156,8 @@
 \newcommand {\Ehc} [1] [] { \edge{\hat{E}_{#1}^{c}} } % Edge cutset complement.
 \newcommand {\Ehp} [1] [] { \edge{\hat{E}_{#1}'} } % Edge cutset.
 \newcommand {\Ehpp} [1] [] { \edge{\hat{E}_{#1}''} } % Edge cutset.
+
+\newcommand {\HE} [1] [] { \edge{\mathcal{F}_{#1}} } % Hyperedge set.
 
 % Edge partitions
 
@@ -188,6 +180,7 @@
 \newcommand {\Epdef} [1] [] { \Ep[#1] \subseteq \E[#1] }
 \newcommand {\Eppdef} [1] [] { \Epp[#1] \subseteq \E[#1] }
 \newcommand {\Ehdef} [1] [] { \Eh[#1] \subseteq \E[#1] }
+\newcommand {\Ehcdef} [1] [] { \Ehc[#1] \defeq \E[#1] \setminus \Eh[#1] }
 \newcommand {\Ehpdef} [1] [] { \Ehp[#1] \subseteq \E[#1] }
 \newcommand {\Ehppdef} [1] [] { \Ehpp[#1] \subseteq \E[#1] }
 
@@ -200,34 +193,18 @@
 \newcommand {\ehp} [1] [] { \edge{\hat{e}_{#1}'} }
 \newcommand {\ehpp} [1] [] { \edge{\hat{e}_{#1}''} }
 
-% Edge containments
-
-\newcommand {\einE} [1] [] { \e[#1] \in \E }
-\newcommand {\epinE} [1] [] { \ep[#1] \in \E }
-\newcommand {\eppinE} [1] [] { \epp[#1] \in \E }
-\newcommand {\ehinE} [1] [] { \eh[#1] \in \E }
-\newcommand {\ehpinE} [1] [] { \ehp[#1] \in \E }
-\newcommand {\ehppinE} [1] [] { \ehpp[#1] \in \E }
-
-\newcommand {\einEh} [1] [] { \e[#1] \in \Eh }
-\newcommand {\einEhc} [1] [] { \e[#1] \in \Ehc }
-\newcommand {\epinEh} [1] [] { \ep[#1] \in \Eh }
-\newcommand {\epinEhc} [1] [] { \ep[#1] \in \Ehc }
-
-\newcommand {\eepinE} [1] [] { \e[#1], \ep[#1] \in \E }
-
 % Adjacency
 
 \newcommand {\adj} [3] [] { #2 \sim_{#1} #3 } % Adjacency predicate.
-\newcommand {\uadjv} [1] [] { \adj[#1]{\u}{\v} }
-\newcommand {\eadjep} [1] [] { \adj[#1]{\e}{\ep} }
 
 \newcommand {\NV} [1] [] { \vertex{N_{#1}} } % Vertex neighbourhood.
 \newcommand {\NE} [1] [] { \edge{N_{#1}} } % Edge neighbourhood.
-\newcommand {\NVi} [2] [] { \NV[#1]\seq{#2} } % Inclusive vertex neighbourhood.
-\newcommand {\NVx} [2] [] { \NV[#1]\tuple{#2} } % Exclusive vertex neighbourhood.
-\newcommand {\NEi} [2] [] { \NE[#1]\seq{#2} } % Inclusive edge neighbourhood.
-\newcommand {\NEx} [2] [] { \NE[#1]\tuple{#2} } % Exclusive edge neighbourhood.
+\newcommand {\NVof} [2] [] { \NV\induced[#1]{#2} }
+\newcommand {\NEof} [2] [] { \NE\induced[#1]{#2} }
+\newcommand {\NVi} [2] [] { \NV[#1]\induced[i]{#2} } % Inclusive vertex neighbourhood.
+\newcommand {\NVx} [2] [] { \NV[#1]\induced[x]{#2} } % Exclusive vertex neighbourhood.
+\newcommand {\NEi} [2] [] { \NE[#1]\induced[i]{#2} } % Inclusive edge neighbourhood.
+\newcommand {\NEx} [2] [] { \NE[#1]\induced[x]{#2} } % Exclusive edge neighbourhood.
 
 % Incidence
 
@@ -248,25 +225,19 @@
 \newcommand {\ve} [1] [] { (\v[#1], \e[#1]) }
 \newcommand {\ev} [1] [] { (\e[#1], \v[#1]) }
 
-\newcommand {\uine} [1] [] { \u[#1] \in \e[#1] }
-\newcommand {\vine} [1] [] { \v[#1] \in \e[#1] }
-\newcommand {\eniu} [1] [] { \e[#1] \ni \u[#1] }
-\newcommand {\eniv} [1] [] { \e[#1] \ni \v[#1] }
-\newcommand {\uvine} [1] [] { \uv[#1] \in \e[#1] }
-
 % Weights
 
 \newcommand {\Vw} [1] [] { \vertex{w_{#1}} } % Vertex weights.
 \newcommand {\Ew} [1] [] { \edge{\omega_{#1}} } % Edge weights.
-\newcommand {\Vwdef} [1] [] { \Vw[#1] : \V \to \Rp } % Vertex weights with definition.
-\newcommand {\Ewdef} [1] [] { \Ew[#1] : \E \to \Rp } % Edge weights with definition.
+\newcommand {\Vwdef} [1] [] { \deffn{\Vw[#1]}{\V}{\Rp} } % Vertex weights with definition.
+\newcommand {\Ewdef} [1] [] { \deffn{\Ew[#1]}{\E}{\Rp} } % Edge weights with definition.
 
 % Induced sets
 
 \newcommand {\induced} [2] [] {
     \ifthenelse{\equal{#1}{e}} {\edgeinduced{#2}} { % e = edge induced <>
-        \ifthenelse{\equal{#1}{s}} {\stronglyinduced{#2}} { % s = strongly induced ()
-            \ifthenelse{\equal{#1}{w}} {\weaklyinduced{#2}} { % w = weakly induced []
+        \ifthenelse{\equal{#1}{x}} {\stronglyinduced{#2}} { % x = strongly induced / exclusive ()
+            \ifthenelse{\equal{#1}{i}} {\weaklyinduced{#2}} { % i = weakly induced / inclusive []
                 \weaklyinduced{#2} % Default
             }
         }
@@ -318,10 +289,10 @@
 \newcommand {\Eborderof} [2] [] { \Eborder\induced[#1]{#2} }
 \newcommand {\Vdborderof} [2] [] { \Vdborder\induced[#1]{#2} }
 
-\newcommand {\Vborderdef} { \Vborder(\Vh) \defeq \setwhere{\vinVh}{\bigexists_{\uinVhc} \uadjv} }
-\newcommand {\Eborderdef} { \Eborder(\Vh) \defeq \setwhere{\einE}{\e \cap \Vh \neq \varnothing \land \e \cap \Vhc \neq \varnothing} }
-\newcommand {\Edborderdef} { \Edborder(\Eh) \defeq \setwhere{\einEh}{\e \cap \bigcup \Ehc \neq \varnothing} }
-\newcommand {\Vdborderdef} { \Vdborder(\Eh) \defeq \setwhere{\vinV}{\Eh{[\v]} \neq \varnothing \land \Ehc{[\v]} \neq \varnothing} }
+\newcommand {\Vborderdef} { \Vborder(\Vh) \defeq \setwhere{\v \in \Vh}{\bigexists_{\u \in \Vhc} \adj{\u}{\v}} }
+\newcommand {\Eborderdef} { \Eborder(\Vh) \defeq \setwhere{\e \in \E}{\e \cap \Vh \neq \varnothing \land \e \cap \Vhc \neq \varnothing} }
+\newcommand {\Edborderdef} { \Edborder(\Eh) \defeq \setwhere{\e \in \Eh}{\e \cap \bigcup \Ehc \neq \varnothing} }
+\newcommand {\Vdborderdef} { \Vdborder(\Eh) \defeq \setwhere{\v \in \V}{\Eh{[\v]} \neq \varnothing \land \Ehc{[\v]} \neq \varnothing} }
 
 % Components
 
@@ -347,8 +318,8 @@
 \newcommand {\CEhp} [1] [] { \edge{\hat{\mathcal{E}}_{#1}'} }
 \newcommand {\CEhpp} [1] [] { \edge{\hat{\mathcal{E}}_{#1}''} }
 
-\newcommand {\VinCV} [1] [i] { \V[#1] \in \CV }
-\newcommand {\EinCE} [1] [i] { \E[#1] \in \CE }
+\newcommand {\CVdef} [2] [1] { \CV = \Vs[#1]{#2} }
+\newcommand {\CEdef} [2] [1] { \CE = \Es[#1]{#2} }
 
 \newcommand {\class} [2] [] { [#2]_{#1} } % Equivalence class
 
@@ -368,11 +339,11 @@
 \newcommand {\Ehpcol} [1] [] { \edge{\hat{\rho}_{#1}'} }
 \newcommand {\Ehppcol} [1] [] { \edge{\hat{\rho}_{#1}''} }
 
-\newcommand {\Vcoldef} [2] [] { \Vcol[#1] : \V \to \until{#2} }
-\newcommand {\Vcolpartial} [2] [] { \Vcol[#1] : \V \parfn \until{#2} }
+\newcommand {\Vcoldef} [2] [] { \deffn{\Vcol[#1]}{\V}{\until{#2}} }
+\newcommand {\Vparcoldef} [2] [] { \defparfn{\Vcol[#1]}{\V}{\until{#2}} }
 
-\newcommand {\Ecoldef} [2] [] { \Ecol[#1] : \V \to \until{#2} }
-\newcommand {\Ecolpartial} [2] [] { \Ecol[#1] : \V \parfn \until{#2} }
+\newcommand {\Ecoldef} [2] [] { \deffn{\Ecol[#1}{\E}{\until{#2}} }
+\newcommand {\Ecolpartial} [2] [] { \defparfn{\Ecol[#1}{\E}{\until{#2}} }
 
 % Cut costs
 

@@ -1,0 +1,39 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{collections-domains}[2025/08/21 Collections (Domains)]
+
+\RequirePackage{amsmath}
+\RequirePackage{modules/colours}
+
+% Colours
+
+\newcommand {\collection} [1] { \col{collection}{#1} }
+\newcommand {\domain} [1] { \col{domain}{#1} }
+
+% Domains
+
+\newcommand {\N} { \domain{\mathbb{N}} } % Natural numbers.
+\newcommand {\No} { \domain{\mathbb{N}_0} } % Natural numbers Inlcuding 0.
+\newcommand {\Ni} { \domain{\mathbb{N}_1} } % Natural numbers Excluding 0.
+\newcommand {\Z} { \domain{\mathbb{Z}} } % Integers.
+\newcommand {\Q} { \domain{\mathbb{Q}} } % Rational numbers.
+\newcommand {\R} { \domain{\mathbb{R}} } % Real numbers.
+\newcommand {\Rp} { \domain{\mathbb{R}^+} } % Positive numbers.
+\newcommand {\Rpp} { \domain{\mathbb{R}^{++}} } % Strictly positive numbers.
+\newcommand {\Rm} { \domain{\mathbb{R}^-} } % Negative numbers.
+\newcommand {\Rmm} { \domain{\mathbb{R}^{--}} } % Strictly negative numbers.
+\newcommand {\C} { \domain{\mathbb{C}} } % Complex numbers.
+\newcommand {\B} { \domain{\mathbb{B}} } % Booleans.
+\newcommand {\F} { \domain{\mathbb{F}} } % Arbitrary field.
+
+% Arbitrary sets
+
+\renewcommand {\S} [1] [] { \collection{S_{#1}} } % Arbitrary set.
+\newcommand {\Sp} [1] [] { \collection{S_{#1}'} } % Arbitrary set.
+\newcommand {\Spp} [1] [] { \collection{S_{#1}''} } % Arbitrary set.
+\newcommand {\T} [1] [] { \collection{T_{#1}} } % Arbitrary set.
+\newcommand {\Tp} [1] [] { \collection{T_{#1}'} } % Arbitrary set.
+\newcommand {\Tpp} [1] [] { \collection{T_{#1}''} } % Arbitrary set.
+
+\newcommand {\SF} [1] [] { \collection{\mathcal{F}_{#1}} } % Arbitrary set family.
+\newcommand {\SFp} [1] [] { \collection{\mathcal{F}_{#1}'} } % Arbitrary set family.
+\newcommand {\SFpp} [1] [] { \collection{\mathcal{F}_{#1}''} } % Arbitrary set family.

@@ -1,0 +1,58 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{collections-collections}[2025/08/21 Collections (Collections)]
+
+\RequirePackage{stmaryrd}
+\RequirePackage{modules/colours}
+
+% Colours
+
+\newcommand {\arr} [1] { \col{array}{#1} }
+
+% Set construction
+
+\newcommand {\set} [1] { \left\{ #1 \!\:\right\} } % Set with elements.
+\newcommand {\setwhere} [2] { \set{#1 \where #2} } % Set with condition.
+\newcommand {\setbtw} [2] { \set{\btw{#1}{#2}} } % Set with endpoints.
+
+% Multiset construction
+
+\newcommand {\bag} [1] { \left\llbracket \, #1 \, \right\rrbracket } % Multiset with elements.
+\newcommand {\bagwhere} [2] { \bag{#1 \where #2} } % Multiset with condition.
+\newcommand {\bagbtw} [2] { \bag{\btw{#1}{#2}} } % Multiset with endpoints.
+
+% Tuple construction
+
+\newcommand {\tuple} [1] { \left( #1 \right) } % Tuple with elements.
+\newcommand {\tuplewhere} [2] { \tuple{#1 \where #2} } % Tuple with condition.
+\newcommand {\tuplebtw} [2] { \tuple{\btw{#1}{#2}} } % Tuple with endpoints.
+
+% Sequence construction
+
+\newcommand {\seq} [1] { \left[ #1 \right] } % Sequence with elements.
+\newcommand {\seqwhere} [2] { \seq{#1 \where #2} } % Sequence with condition.
+\newcommand {\seqbtw} [2] { \seq{\btw{#1}{#2}} } % Sequence with endpoints.
+
+% Vectors
+
+\renewcommand {\vector} [1] { \arr{\vec{#1}} }
+\newcommand {\vecat} [2] { \arr{{#1}_{#2}} }
+\newcommand {\vecrange} [3] { \arr{\vec{#1}_{#2:#3}} }
+
+\newcommand {\veccol} [1] { \BMatrix{#1} }
+\newcommand {\vecbtw} [2] { \colvec{#1 \\ \vdots \\ #2} }
+
+% Angled construction
+
+\newcommand {\angled} [1] { \left\langle #1 \right\rangle } % Angled with elements.
+\newcommand {\angledwhere} [2] { \angled{#1 \where #2} } % Angled with condition.
+\newcommand {\angledbtw} [2] { \angled{\btw{#1}{#2}} } % Angled with endpoints.
+
+% Intervals
+
+\newcommand {\interval} [2] { \seq{#1 : #2} } % Interval from endpoints.
+\newcommand {\until} [1] { \seq{#1} } % Interval from 1.
+
+% Parts
+
+\newcommand {\btw} [2] { #1, \dots, #2 } % Sequence with endpoints.
+\newcommand {\where} { \ \middle\vert \ } % Vertical bar for conditions.

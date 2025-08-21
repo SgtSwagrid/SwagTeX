@@ -1,0 +1,40 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{collections-operators}[2025/08/21 Collections (Operators)]
+
+\RequirePackage{graphicx}
+
+% Quantifiers
+
+\newcommand {\bigexists} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\exists$}}} \limits } % Existential quantifier.
+\newcommand {\bigforall} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\forall$}}} \limits } % Universal quantifier.
+
+% Relations
+
+\newcommand {\nsubset} { \not\subset } % Not a strict subset.
+\renewcommand {\nsubseteq} { \not\subseteq } % Not a subset.
+\newcommand {\nsupset} { \not\supset } % Not a strict superset.
+\renewcommand {\nsupseteq} { \not\supseteq } % Not a superset.
+\newcommand {\notni} { \not\ni } % Doesn't contain.
+
+% Operators
+
+\newcommand {\dotcup} { \mathbin{\dot{\cup}} } % Disjoint union.
+\newcommand {\bigdotcup} { \mathop{\dot{\bigcup}}\displaylimits } % Big disjoint union.
+
+% Repeated operators
+
+\newcommand {\capbtw} [2]  { #1 \cap \dots \cap #2 } % Repeated intersection from endpoints.
+\newcommand {\cupbtw} [2]  { #1 \cup \dots \cup #2 } % Repeated union sequence from endpoints.
+\newcommand {\dotcupbtw} [2] { #1 \dotcup \dots \dotcup #2 } % Repeated disjoint union from endpoints.
+
+% Numeric operators
+
+\newcommand {\abs} [1] { \left| #1 \right| } % Absolute value
+\newcommand {\floor} [1] { \left\lfloor #1 \right\rfloor } % Round down
+\newcommand {\ceil} [1] { \left\lceil #1 \right\rceil } % Round up
+\newcommand {\round} [1] { \left\lceil #1 \right\rfloor } % Round nearest
+
+% Optimisation
+
+\DeclareMathOperator* {\argmin} { arg\,min }
+\DeclareMathOperator* {\argmax} { arg\,max }

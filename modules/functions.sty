@@ -1,0 +1,81 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{collections-functions}[2025/08/21 Collections (Functions)]
+
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{modules/colours}
+
+% Colours
+
+\newcommand {\function} [1] { \col{function}{#1} }
+\newcommand {\aux} [1] { \col{aux}{#1} } % For unimportant details that shouldn't stand out.
+
+% Generic functions
+
+\newcommand {\f} [1] [] { \function{f_{#1}} }
+\newcommand {\g} [1] [] { \function{g_{#1}} }
+\newcommand {\finv} [1] [] { \function{f_{#1}^{-1}} }
+\newcommand {\ginv} [1] [] { \function{g_{#1}^{-1}} }
+
+% Bijections
+
+\newcommand {\bijectionof} [2] { \aux{#1 (} #2 \aux{)} } % Bijection applied to some element.
+
+\newcommand {\inv} [1] { \aux{{#1}^{-1}} } % Inverse of a bijection.
+
+\newcommand {\bphi} [1] [] { \aux{\phi_{#1}} } % Generic bijection (phi).
+\newcommand {\bpsi} [1] [] { \aux{\psi_{#1}} } % Generic bijection (psi).
+\newcommand {\bPhi} [1] [] { \aux{\Phi_{#1}} } % Generic bijection (Phi).
+\newcommand {\bPsi} [1] [] { \aux{\Psi_{#1}} } % Generic bijection (Psi).
+
+\newcommand {\phiof} [2] [] { \bijectionof{\bphi[#1]}{#2} } % phi applied to some element.
+\newcommand {\psiof} [2] [] { \bijectionof{\bpsi[#1]}{#2} } % psi applied to some element.
+\newcommand {\Phiof} [2] [] { \bijectionof{\bPhi[#1]}{#2} } % Phi applied to some element.
+\newcommand {\Psiof} [2] [] { \bijectionof{\bPsi[#1]}{#2} } % Psi applied to some element.
+
+% Weights
+
+\newcommand {\weight} [1] [] { \aux{\lambda_{#1}} } % Generic factor (lambda).
+\newcommand {\weightbar} [1] [] { \aux{\overline{\lambda}_{#1}} } % Generic factor (1 - lambda).
+\newcommand {\Weight} [1] [] { \aux{\Lambda_{#1}} }  % Generic factor (Lambda).
+\newcommand {\Weightbar} [1] [] { \aux{\overline{\Lambda}_{#1}} }  % Generic factor (1 - Lambda).
+
+\newcommand {\weighttype} [1] [] { \weight[#1] \in \interval{0}{1} } % Definition of lambda in range [0, 1].
+\newcommand {\weightbardef} [1] [] { \weightbar[#1] \defeq 1 - \weight[#1] } % Definition of !lambda = 1 - lambda.
+\newcommand {\Weighttype} [1] [] { \Weight[#1] \in \interval{0}{1} } % Definition of Lambda in range [0, 1].
+\newcommand {\Weightbardef} [1] [] { \Weightbar[#1] \defeq 1 - \Weight[#1] } % Definition of !Lambda = 1 - Lambda.
+
+% Definitions
+
+\newcommand {\defeq} { \triangleq } % Define to be equal.
+
+% Function arrows
+
+\newcommand {\fn} { \to } % Function arrow.
+\newcommand {\inj} { \hookrightarrow } % Injective function arrow.
+\newcommand {\surj} { \twoheadrightarrow } % Surjective function arrow.
+\newcommand {\bij} { \leftrightarrow } % Bijective function arrow.
+\newcommand {\parfn} { \rightharpoonup } % Partial function arrow.
+
+% Function types
+
+\newcommand {\typefn} [2] { #1 \fn #2 } % Function type.
+\newcommand {\typeinj} [2] { #1 \inj #2 } % Injective function type.
+\newcommand {\typesurj} [2] { #1 \surj #2 } % Surjective function type.
+\newcommand {\typebij} [2] { #1 \bij #2 } % Bijective function type.
+\newcommand {\typeparfn} [2] { #1 \parfn #2 } % Partial function type.
+
+% Function type definitions
+
+\newcommand {\deffn} [3] { \function{#1} : \typefn{#2}{#3} } % Function definition.
+\newcommand {\definj} [3] { \function{#1} : \typeinj{#2}{#3} } % Injective function definition.
+\newcommand {\defsurj} [3] { \function{#1} : \typesurj{#2}{#3} } % Surjective function definition.
+\newcommand {\defbij} [3] { \function{#1} : \typebij{#2}{#3} } % Bijective function definition.
+\newcommand {\defparfn} [3] { \function{#1} : \typepar{#2}{#3} } % Partial function definition.
+
+% Domain and rangle
+
+\DeclareMathOperator{\dom}{dom} % Domain.
+\DeclareMathOperator{\cod}{cod} % Codomain.
+\DeclareMathOperator{\ran}{ran} % Range.
+\DeclareMathOperator{\im}{im} % Image.

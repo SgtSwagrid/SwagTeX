@@ -1,0 +1,242 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{collections-environments}[2025/08/21 Collections (Environments)]
+
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{float}
+\RequirePackage{subcaption}
+\RequirePackage{tcolorbox}
+\RequirePackage{scrextend}
+\RequirePackage{tabu}
+\RequirePackage{enumitem}
+\RequirePackage{ifthen}
+
+% Definition environments
+
+\newtheorem{definition}{Definition}
+\newtheorem{property}{Property}
+\newtheorem{requirement}{Requirement}
+
+\newcommand {\Definition} [1] { \Env{definition}{#1} }
+\newcommand {\Property} [1] { \Env{property}{#1} }
+\newcommand {\Requirement} [1] { \Env{requirement}{#1} }
+
+% Theorem environments
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{fact}{Fact}
+
+\newcommand {\Proposition} [1] { \Env{proposition}{#1} }
+\newcommand {\Lemma} [1] { \Env{lemma}{#1} }
+\newcommand {\Theorem} [1] { \Env{theorem}{#1} }
+\newcommand {\Corollary} [1] { \Env{corollary}{#1} }
+\newcommand {\Fact} [1] { \Env{fact}{#1} }
+
+% Proof environments
+
+\newtheorem*{assumption}{Assumption}
+\newtheorem*{contradiction}{Contradiction}
+\newtheorem*{counterexample}{Counterexample}
+
+\newcommand {\Proof} [1] { \Env{proof}{#1} }
+\newcommand {\ProofLn} [1] { \Proof{\leavevmode\par #1} } % Proof beginning with new line.
+\newcommand {\Assumption} [1] { \Env{assumption}{#1} }
+\newcommand {\Contradiction} [1] { \Env{contradiction}{#1} }
+\newcommand {\Counterexample} [1] { \Env{counterexample}{#1} }
+
+\newcommand {\Case} [3] { \Section{Case #1. #2}{#3} }
+\newcommand {\Forward} [2] { \Section{$(\implies)$ #1}{#2} }
+\newcommand {\Backward} [2] { \Section{$(\impliedby)$ #1}{#2} }
+
+% Box for providing a definition within a proof.
+\renewcommand {\Box} [1] {
+    \begin{tcolorbox}[colback=gray!8, colframe=black, boxrule=0.3pt, sharp corners, left=6pt, right=6pt, top=4pt, bottom=4pt]
+        #1
+    \end{tcolorbox}
+}
+
+% Equation environments
+
+\newcommand {\Equation} [1] {
+    %chktek 1
+    \Env{equation}{\ensuremath{#1}}
+    %chktex on
+}
+
+\newcommand {\Split} [1] { \Env{split}{#1} }
+\newcommand {\Equations} [1] { \Equation{\Split{#1}} }
+\newcommand {\Cases} [1] { \Env {cases}{#1} }
+\newcommand {\BMatrix} [1] { \Env{bmatrix}{#1} }
+
+% List environments
+
+\newcommand {\List} [2] [] {
+    \ifthenelse{\equal{#1}{b}} {\ListBullets{#2}} { % b = bullets
+        \ifthenelse{\equal{#1}{n}} {\ListNumbered{#2}} { % n = numbered
+            \ifthenelse{\equal{#1}{a}} {\ListAlphLower{#2}} { % a = lower alphabet
+                \ifthenelse{\equal{#1}{A}} {\ListAlphUpper{#2}} { % A = upper alphabet
+                    \ifthenelse{\equal{#1}{r}} {\ListRomanLower{#2}} { % r = lower roman
+                        \ifthenelse{\equal{#1}{R}} {\ListRomanUpper{#2}} { % R = upper roman
+                            \ListBullets{#2} % Default.
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+\newcommand {\ListBullets} [1] { \EnvParam{itemize}{}{#1} } % List with bullet points.
+\newcommand {\ListNumbered} [1] { \EnvParam{enumerate}{}{#1} } % List with numbers.
+\newcommand {\ListAlphLower} [1] { \EnvParam{enumerate}{label=\alph*.}{#1} } % List with lower-case letters.
+\newcommand {\ListAlphUpper} [1] { \EnvParam{enumerate}{label=\Alph*.}{#1} } % List with upper-case letters.
+\newcommand {\ListRomanLower} [1] { \EnvParam{enumerate}{label=\roman*.}{#1} } % List with lower-case roman numerals.
+\newcommand {\ListRomanUpper} [1] { \EnvParam{enumerate}{label=\Roman*.}{#1} } % List with upper-case roman numerals.
+
+\newcommand {\compact} {
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+}
+
+\newcommand {\TightList} [2] [] { \List[#1]{\compact #2} }
+
+% Didactic environments
+
+\newtheorem*{remark}{Remark}
+\newtheorem*{observation}{Observation}
+\newtheorem*{note}{Note}
+\newtheorem*{interpretation}{Interpretation}
+\newtheorem*{clarification}{Clarification}
+\newtheorem*{rationale}{Rationale}
+\newtheorem*{goal}{Goal}
+\newtheorem*{example}{Example}
+\newtheorem*{question}{Question}
+\newtheorem*{problem}{Problem}
+
+
+\newcommand {\Remark} [1] { \Env{remark}{#1} }
+\newcommand {\Observation} [1] { \Env{observation}{#1} }
+\newcommand {\Note} [1] { {\smaller \Env{note}{#1}} }
+\newcommand {\Interpretation} [1] { \Env{interpretation}{#1} }
+\newcommand {\Clarification} [1] { \Env{clarification}{#1} }
+\newcommand {\Rationale} [1] { \Env{rationale}{#1} }
+\newcommand {\Goal} [1] { \Env{goal}{#1} }
+\newcommand {\Example} [1] { \Env{example}{#1} }
+\newcommand {\Question} [1] { \Env{question}{#1} }
+\newcommand {\Problem} [1] { \Env{problem}{#1} }
+
+% Quote environments
+
+\newcommand {\Quote} [2] {
+    \leftskip=1em
+    \col {lightgray} {
+        \begin {tabu} {|[1.5pt]p{\dimexpr\textwidth-2em\relax}}
+            \leftskip = 1em
+            \col {quote} {#1} \\ \\
+            \hfill \col {text} {--- #2}
+        \end {tabu}
+    }
+}
+
+% Figure environments
+
+\newcommand {\Figure} [1] {
+    \begin{figure}[H]
+        \centering
+        #1
+    \end{figure}
+}
+
+\newcommand {\CaptionedFigure} [2] {
+    \Figure {
+        #1
+        \caption{#2}
+    }
+}
+
+\newcommand {\HalfFigure} [1] {
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        #1
+    \end{subfigure}
+}
+
+\newcommand {\ThirdFigure} [1] {
+    \begin{subfigure}[t]{0.29\textwidth}
+        \centering
+        #1
+    \end{subfigure}
+}
+
+\newcommand {\DoubleFigure} [2] {
+    \Figure {
+        \HalfFigure{#1}
+        \VBorder
+        \HalfFigure{#2}
+    }
+}
+
+\newcommand {\CaptionedDoubleFigure} [3] {
+    \Figure {
+        \HalfFigure{#1}
+        \VBorder
+        \HalfFigure{#2}
+        \caption{#3}
+    }
+}
+
+\newcommand {\TripleFigure} [3] {
+    \Figure {
+        \ThirdFigure{#1}
+        \col{lightgray}{\vrule width 1.5px}
+        \ThirdFigure{#2}
+        \col{lightgray}{\vrule width 1.5px}
+        \ThirdFigure{#3}
+    }
+}
+
+\newcommand {\CaptionedTripleFigure} [4] {
+    \Figure {
+        \ThirdFigure{#1}
+        \col{lightgray}{\vrule width 1.5px}
+        \ThirdFigure{#2}
+        \col{lightgray}{\vrule width 1.5px}
+        \ThirdFigure{#3}
+        \caption{#4}
+    }
+}
+
+\newcommand {\VBorder} { \col{lightgray}{\vrule width 1.5px} }
+
+\newcommand {\Diagram} [1] { \Env{tikzpicture}{#1} }
+
+% General environments
+
+\newcommand {\Env} [2] {
+    \begin{#1}
+        #2
+    \end{#1}
+}
+
+\newcommand {\EnvParam} [3] {
+    \begin{#1}[#2]
+        #3
+    \end{#1}
+}
+
+\newcommand {\Indent} [1] {
+    \begin{addmargin}[1em]{0}
+        #1
+    \end{addmargin}
+}
+
+\newcommand {\Section} [2] {
+    \noindent \textbf{#1:}
+    \vspace{3pt}
+    \Indent{#2}
+    \vspace{3pt}
+}

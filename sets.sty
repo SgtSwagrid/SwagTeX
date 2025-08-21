@@ -1,0 +1,29 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sets}[2025/08/21 Set Theory]
+
+% Set construction
+
+\newcommand {\set} [1] { \left\{ #1 \right\} } % Set with elements.
+\newcommand {\setwhere} [2] { \set{#1 \where #2} } % Set with condition.
+\newcommand {\setbtw} [2] { \set{\btw{#1}{#2}} } % Set with endpoints.
+
+% Multiset construction
+
+\newcommand {\bag} [1] { \left\llbracket \, #1 \, \right\rrbracket } % Multiset with elements.
+\newcommand {\bagwhere} [2] { \bag{#1 \where #2} } % Multiset with condition.
+\newcommand {\bagbtw} [2] { \bag{\btw{#1}{#2}} } % Multiset with endpoints.
+
+% Quantifiers
+
+\newcommand {\bigexists} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\exists$}}} \limits } % Existential quantifier.
+\newcommand {\bigforall} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\forall$}}} \limits } % Universal quantifier.
+
+\newcommand {\btw} [2] { #1, \dots, #2 }
+
+% Relations
+
+\newcommand {\nsubset} { \not\subset } % Not a strict subset.
+%\newcommand {\nsubseteq} { \not\subseteq } % Not a subset.
+\newcommand {\nsupset} { \not\supset } % Not a superset.
+%\newcommand {\nsupseteq} { \not\supseteq } % Not a strict superset.
+\newcommand {\notni} { \not\ni } % Doesn't contain.

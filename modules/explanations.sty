@@ -1,0 +1,35 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTex-explanations}
+
+% Relations
+
+\newcommand {\eqwhy} [1] { \marked{=}{#1} }
+\newcommand {\neqwhy} [1] { \marked{\neq}{#1} }
+\newcommand {\defwhy} [1] { \marked{\defn}{#1} }
+\newcommand {\congwhy} [1] { \marked{\cong}{#1} }
+\newcommand {\equivwhy} [1] { \marked{\equiv}{#1} }
+\newcommand {\simwhy} [1] { \marked{\sim}{#1} }
+
+\newcommand {\geqwhy} [1] { \marked{\geq}{#1} }
+\newcommand {\gtrwhy} [1] { \marked{>}{#1} }
+\newcommand {\leqwhy} [1] { \marked{\leq}{#1} }
+\newcommand {\leswhy} [1] { \marked{<}{#1} }
+
+\newcommand {\precwhy} [1] { \marked{\prec}{#1} }
+\newcommand {\preceqwhy} [1] { \marked{\preceq}{#1} }
+\newcommand {\succwhy} [1] { \marked{\succ}{#1} }
+\newcommand {\succeqwhy} [1] { \marked{\succeq}{#1} }
+
+\newcommand {\inwhy} [1] { \marked{\in}{#1} }
+\newcommand {\subseteqwhy} [1] { \marked{\subseteq}{#1} }
+\newcommand {\subsetwhy} [1] { \marked{\subset}{#1} }
+\newcommand {\supseteqwhy} [1] { \marked{\supseteq}{#1} }
+\newcommand {\supsetwhy} [1] { \marked{\supset}{#1} }
+
+\newcommand {\implieswhy} [1] { \marked{\implies}{#1} }
+\newcommand {\impliedbywhy} [1] { \marked{\impliedby}{#1} }
+\newcommand {\iffwhy} [1] { \marked{\iff}{#1} }
+
+% Explanations
+
+\newcommand {\explain} [2] { \mark{#1} #2 }

@@ -1,7 +1,15 @@
+% https://www.overleaf.com/learn/latex/Using_colors_in_LaTeX
+
+% Package definition
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-colours}
+\ProvidesPackage{SwagTeX-colours}
+
+% Dependencies
 
 \RequirePackage[dvipsnames]{xcolor}
+
+% Commands
 
 \let \col \textcolor
 
@@ -11,14 +19,17 @@
 
 % Collections
 \colorlet {collection} {YellowGreen}
-\colorlet {domain} {Orange}
+\colorlet {domain} {Goldenrod!50!Black}
 \colorlet {array} {Blue!70!Black}
+\colorlet {element} {SeaGreen}
 
 % Graphs
 \colorlet {graph} {JungleGreen}
-\colorlet {vertex} {BrickRed}
-\colorlet {edge} {NavyBlue}
+\colorlet {vertex} {BrickRed!90!Orchid}
+\colorlet {edge} {NavyBlue!90!Orchid}
+\colorlet {mixed} {Orchid!90!NavyBlue}
+\colorlet {graphop} {JungleGreen!40!black}
 
 % Functions
-\colorlet {function} {Periwinkle!70}
+\colorlet {function} {BurntOrange!80!white!80!graphop}
 \colorlet {aux} {Gray}

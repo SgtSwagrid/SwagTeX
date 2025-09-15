@@ -1,0 +1,173 @@
+% Package definition
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-notes}
+
+% External dependencies
+
+\RequirePackage {
+    amsmath,
+    mathtools,
+    xcolor,
+    xparse,
+    expl3,
+}
+
+% Internal dependencies
+
+\RequirePackage {
+    SwagTeX/modules/colours,
+    SwagTeX/modules/environments,
+}
+
+% Implications with explanations
+
+\newcommand {\impliesby} [1] { \xRightarrow{\raisebox{0.2ex}{\scriptsize $#1$}} } % Long implication arrow with explanation atop.
+\newcommand {\impliesbytxt} [1] { \impliesby{\text{#1}} } % Long implication arrow with textual explanation atop.
+\newcommand {\impliesbyref} [1] { \impliesby{\cref{#1}} } % Long implication arrow with cref reference (lowercase) atop.
+\newcommand {\impliesbyRef} [1] { \impliesby{\Cref{#1}} } % Long implication arrow with cref reference (uppercase) atop.
+
+% Biconditionals with explanations
+
+\newcommand {\iffby} [1] { \xLeftrightarrow{\raisebox{0.2ex}{\scriptsize $#1$}} } % Long biconditional arrow with explanation atop.
+\newcommand {\iffbytxt} [1] { \iffby{\text{#1}} } % Long biconditional arrow with textual explanation atop.
+\newcommand {\iffbyref} [1] { \iffby{\cref{#1}} } % Long biconditional arrow with cref reference (lowercase) atop.
+\newcommand {\iffbyRef} [1] { \iffby{\Cref{#1}} } % Long biconditional arrow with cref reference (uppercase) atop.
+
+% Equality with explanations
+
+\newcommand {\eqby} [1] { \xlongequal{\raisebox{0}{\scriptsize $#1$}} } % Long equality with explanation atop.
+\newcommand {\eqbytxt} [1] { \xlongequal{\text{#1}} } % Long equality with textual explanation atop.
+\newcommand {\eqbyref} [1] { \xlongequal{\cref{#1}} } % Long equality with cref reference (lowercase) atop.
+\newcommand {\eqbyRef} [1] { \xlongequal{\Cref{#1}} } % Long equality with cref reference (uppercase) atop.
+
+% Mappings with explanations
+
+\newcommand {\mapstoby} [1] { \xmapsto{\raisebox{0.1ex}{\scriptsize $#1$}} } % Long mapping arrow with explanation atop.
+\newcommand {\mapstobytxt} [1] { \mapstoby{\text{#1}} } % Long mapping arrow with textual explanation atop.
+\newcommand {\mapstobyref} [1] { \mapstoby{\cref{#1}} } % Long mapping arrow with cref reference (lowercase) atop.
+\newcommand {\mapstobyRef} [1] { \mapstoby{\Cref{#1}} } % Long mapping arrow with cref reference (uppercase) atop.
+
+% Labels
+
+\newcounter {ids}
+
+\newcommand {\nextid} [1] [roman] {%
+    \stepcounter{ids}%
+    \csname#1\endcsname{ids}% 
+}
+
+\newcommand {\resetid} {%
+    \setcounter{ids}{0}%
+}
+
+\def\identifier#1{\tiny{\mathbf{\col{olive}{(#1)}}}}
+\def\Identifier#1{\mathbf{\col{olive}{(#1)}}}
+
+\newcommand {\markwith} [2] {%
+    \overset{\smash{\raisebox{0.2ex}{\identifier{#2}}}}{#1}%
+}
+
+\newcommand {\marked} [2] [roman] {%
+    \stepcounter{ids}%
+    \markwith{#2}{\roman{ids}}%
+}
+
+% Relations with deferred explanations
+
+\newcommand {\eqwhy} [1] [] { \marked[#1]{=} }
+\newcommand {\neqwhy} [1] [] { \marked[#1]{\neq} }
+\newcommand {\defwhy} [1] [] { \marked[#1]{\defn} }
+\newcommand {\congwhy} [1] [] { \marked[#1]{\cong} }
+\newcommand {\equivwhy} [1] [] { \marked[#1]{\equiv} }
+\newcommand {\simwhy} [1] [] { \marked[#1]{\sim} }
+
+\newcommand {\geqwhy} [1] [] { \marked[#1]{\geq} }
+\newcommand {\gtrwhy} [1] [] { \marked[#1]{>} }
+\newcommand {\leqwhy} [1] [] { \marked[#1]{\leq} }
+\newcommand {\leswhy} [1] [] { \marked[#1]{<} }
+
+\newcommand {\precwhy} [1] [] { \marked[#1]{\prec} }
+\newcommand {\preceqwhy} [1] [] { \marked[#1]{\preceq} }
+\newcommand {\succwhy} [1] [] { \marked[#1]{\succ} }
+\newcommand {\succeqwhy} [1] [] { \marked[#1]{\succeq} }
+
+\newcommand {\inwhy} [1] [] { \marked[#1]{\in} }
+\newcommand {\subseteqwhy} [1] [] { \marked[#1]{\subseteq} }
+\newcommand {\subsetwhy} [1] [] { \marked[#1]{\subset} }
+\newcommand {\supseteqwhy} [1] [] { \marked[#1]{\supseteq} }
+\newcommand {\supsetwhy} [1] [] { \marked[#1]{\supset} }
+
+\newcommand {\implieswhy} [1] [] { \marked[#1]{\implies} }
+\newcommand {\impliedbywhy} [1] [] { \marked[#1]{\impliedby} }
+\newcommand {\iffwhy} [1] [] { \marked[#1]{\iff} }
+
+% Operators with deferred explanations
+
+\newcommand {\pluswhy} [1] [] { \marked[#1]{+} }
+\newcommand {\minuswhy} [1] [] { \marked[#1]{-} }
+\newcommand {\timeswhy} [1] [] { \marked[#1]{\times} }
+\newcommand {\cdotwhy} [1] [] { \marked[#1]{\cdot} }
+\newcommand {\opluswhy} [1] [] { \marked[#1]{\oplus} }
+\newcommand {\ominuswhy} [1] [] { \marked[#1]{\ominus} }
+
+% Explanations
+
+\newcommand {\Explain} [1] {
+    \small {
+        \EnvParam {enumerate} {label=\Identifier{\roman*}} {\compact #1}
+    }
+    \resetid
+}
+
+% Footnotes
+
+\ExplSyntaxOn
+
+\let \see \footnotemark
+\let \note \footnotetext
+\newcommand {\notes} [3] {
+    \addtocounter{footnote}{#1-#2}
+    \note{#3}
+    \addtocounter{footnote}{#2-#1}
+}
+
+\NewDocumentCommand {\Footnote} { > { \exp_args:Nx \SplitList { \iow_char:N \^^M } } +v } {
+
+    \tl_map_inline:nn {#1} {
+        \tl_if_blank:nF { ##1 } {
+            \addtocounter{footnote}{-1}
+        }
+    }
+    
+    \tl_map_inline:nn {#1} {
+        \tl_if_blank:nF { ##1 } {
+            \stepcounter{footnote}
+            \footnotetext{##1}
+        }
+    }
+}
+
+\ExplSyntaxOff
+
+% Underbrace and overbrace
+
+\newcommand { \undernote } [2] { \smash{\underbrace{#1}_{\substack{#2}}} } % Underbrace that doesn't vertically extend surrounding brackets.
+\newcommand { \overnote } [2] { \smash{\overbrace{#1}^{#2}} } % Overbrace that doesn't vertically extend surrounding brackets.
+
+\newcommand { \undernotetxt } [2] { \smash{\underbrace{#1}_{\text{#2}}} } % Underbrace that doesn't vertically extend surrounding brackets.
+\newcommand { \overnotetxt } [2] { \smash{\overbrace{#1}^{\text{#2}}} } % Overbrace that doesn't vertically extend surrounding brackets.
+
+% When using undernote in a multiline equation, it is necessary to use spaceunder at the start of the line to ensure the next line doesn't overlap.
+% The parameter is the number of lines in the note text (max 3).
+\newcommand {\spaceunder} [1] {
+    \ifthenelse {\equal{#1}{1}} {\vphantom{\underbrace{A}_{\substack{A}}}} {
+    \ifthenelse {\equal{#1}{2}} {\vphantom{\underbrace{A}_{\substack{A \\ A}}}} {
+    \ifthenelse {\equal{#1}{3}} {\vphantom{\underbrace{A}_{\substack{A \\ A \\ A}}}} {}}}
+}
+
+% When using overnote in a multiline equation, it is necessary to use spaceover at the start of the line to ensure the previous line doesn't overlap.
+% The parameter is the number of lines in the note text (max 3).
+\newcommand {\spaceover} {
+    \vphantom{\overbrace{A}^{A}}
+}

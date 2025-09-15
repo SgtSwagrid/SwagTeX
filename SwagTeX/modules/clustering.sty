@@ -1,0 +1,172 @@
+% Package definition
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-clustering}
+
+% External dependencies
+
+\RequirePackage{amsfonts}
+\RequirePackage{graphicx}
+\RequirePackage{bm}
+
+% Internal dependencies
+
+\RequirePackage{SwagTeX/modules/collections}
+\RequirePackage{SwagTeX/modules/colours}
+\RequirePackage{SwagTeX/modules/domains}
+\RequirePackage{SwagTeX/modules/functions}
+\RequirePackage{SwagTeX/modules/graphs}
+\RequirePackage{SwagTeX/modules/operators}
+
+% Vertex clusterings (partitions of the vertex set V)
+
+\newcommand {\CV} [1] [] { \vertex{\mathcal{V}_{#1}} } % Partition of the vertex set V.
+\newcommand {\CVp} [1] [] { \vertex{\mathcal{V}_{#1}'} }
+\newcommand {\CVpp} [1] [] { \vertex{\mathcal{V}_{#1}''} }
+\newcommand {\CPV} [1] [] { \vertex{\tilde{\mathcal{V}}_{#1}} } % Partial partition of V, where not every V must be covered.
+
+\newcommand {\CVdef} [2] [1] { \CV = \Vs[#1]{#2} } % Expanded definition of CV in terms of clusters V[1], ..., V[k].
+\newcommand {\CPVdef} [2] [1] { \CPV = \Vs[#1]{#2} } % Expanded definition of CPV in terms of clusters V[1], ..., V[k].
+
+\newcommand {\CVs} [1] [] { \vertex{\Pi_{#1}} } % Set of all partitions of the vertices V.
+\newcommand {\CPVs} [1] [] { \vertex{\tilde{\Pi}_{#1}} } % Set of all partial partitions of the vertices V.
+
+\newcommand {\Vdual} [1] { {#1}^{\vertex{*}} } % The dual of an edge clustering.
+\newcommand {\Vrdual} [1] { {#1}^{\vertex{\dagger}} } % The refined dual of an edge clustering (Vdual separated into connected components).
+
+\newcommand {\CEd} [1] [] { \edge{\mathcal{E}_{#1}^{\vertex{*}}} } % Dual (vertex) partition of edge partition.
+\newcommand {\CErd} [1] [] { \edge{\mathcal{E}_{#1}^{\vertex{\dagger}}} } % Refined vertex dual (CEd separated into connected components).
+\newcommand {\CEddef} [1] [] { \bagwhere{\V(\E[i])}{\E[i] \in \CE} } % Definition of the dual clustering CEd in terms of induced edges.
+
+\newcommand {\Vpart} [2] [1] { \dotcupbtw{\V[#1]}{\V[#2]} } % Parititon of V presented as disjoint union.
+
+\newcommand {\Vcol} [1] [] { \vertex{\sigma_{#1}} } % Vertex colouring.
+\newcommand {\Vpcol} [1] [] { \vertex{\sigma_{#1}'} }
+\newcommand {\Vppcol} [1] [] { \vertex{\sigma_{#1}''} }
+
+\newcommand {\Vcoldef} [2] [] { \Vcol[#1] : \V \to \until{#2} } % Type ascription for vertex colouring.
+\newcommand {\PVcoldef} [2] [] { \Vcol[#1] : \V \someto \until{#2} } % Type ascription for partial vertex colouring.
+
+\newcommand {\Vcomp} { \vertex{\bigpi} } % Vertices of the connected components.
+\newcommand {\Vcompdef} [2] [1] { \Vcomp(\H) = \Vs[#1]{#2} } % Expanded definition of Vcomp in terms of components V[1], ..., V[k].
+
+\newcommand {\Vsizes} { \vertex{\mathcal{N}} } % Multiset of number of vertices in each cluster.
+\newcommand {\Vdsizes} { \vertex{\mathcal{M}} } % Multiset of number of dual edges in each cluster.
+\newcommand {\Vsizesdef} { \Vsizes(\CV) \df \bagwhere{\Vw(\V[i])}{\V[i] \in \CV} } % Definition of Vsizes.
+\newcommand {\Vdsizesdef} { \Esizes(\CE) \df \bagwhere{\Vw(\V(\E[i]))}{\E[i] \in \CE} } % Definition of Vdsizes.
+
+% Edge clusterings (partitions of the edge set E)
+
+\newcommand {\CE} [1] [] { \edge{\mathcal{E}_{#1}} } % Partition of the edge set E.
+\newcommand {\CEp} [1] [] { \edge{\mathcal{E}_{#1}'} }
+\newcommand {\CEpp} [1] [] { \edge{\mathcal{E}_{#1}''} }
+\newcommand {\CPE} [1] [] { \edge{\tilde{\mathcal{E}}_{#1}} } % Partial partition of E, where not every E must be covered.
+
+\newcommand {\CEdef} [2] [1] { \CE = \Es[#1]{#2} } % Expanded definition of CE in terms of clusters E[1], ..., E[k].
+\newcommand {\CPEdef} [2] [1] { \CPE = \Es[#1]{#2} } % Expanded definition of CPE in terms of clusters E[1], ..., E[k].
+
+\newcommand {\CEs} [1] [] { \edge{\Pi_{#1}} } % Set of all partitions of the edges E.
+\newcommand {\CPEs} [1] [] { \edge{\tilde{\Pi}_{#1}} } % Set of all partial partitions of the edges E.
+
+\newcommand {\Edual} [1] { {#1}^{\edge{*}} } % The dual of a vertex clustering.
+\newcommand {\Erdual} [1] { {#1}^{\edge{\dagger}} } % The refined dual of a vertex clustering (Edual separated into connected components).
+
+\newcommand {\CVd} [1] [] { \vertex{\mathcal{V}_{#1}^{\edge{*}}} } % Dual (edge) partition of vertex partition.
+\newcommand {\CVrd} [1] [] { \vertex{\mathcal{V}_{#1}^{\edge{\dagger}}} } % Refined edge dual (CVd separated into connected components).
+\newcommand {\CVddef} [1] [] { \CVddef = \bagwhere{\E(\V[i])}{\V[i] \in \CV} } % Definition of the dual clustering CVd in terms of induced edges.
+
+\newcommand {\Epart} [2] [1] { \dotcupbtw{\E[#1]}{\E[#2]} } % Parititon of E presented as disjoint union.
+
+\newcommand {\Ecol} [1] [] { \edge{\sigma{#1}} } % Edge colouring.
+\newcommand {\Epcol} [1] [] { \edge{\sigma{#1}'} }
+\newcommand {\Eppcol} [1] [] { \edge{\sigma{#1}''} }
+
+\newcommand {\Ecoldef} [2] [] { \Ecol[#1] : \E \to \until{#2} } % Type ascription for edge colouring.
+\newcommand {\PEcoldef} [2] [] { \Ecol[#1] : \E \someto \until{#2} } % Type ascription for partial edge colouring.
+
+\newcommand {\Ecomp} { \edge{\bigpi} } % Edges of the connected components.
+\newcommand {\Ecompdef} [2] [1] { \Ecomp(\H) = \Es[#1]{#2} } % Expanded definition of Ecomp in terms of components E[1], ..., E[k].
+
+\newcommand {\Esizes} { \edge{\mathcal{M}} } % Multiset of number of edges in each cluster.
+\newcommand {\Edsizes} { \edge{\mathcal{N}} } % Multiset of number of dual vertices in each cluster.
+\newcommand {\Esizesdef} { \Esizes(\CV) \df \bagwhere{\Ew(\E(\V[i]))}{\V[i] \in \CV} } % Definition of Esizes.
+\newcommand {\Edsizesdef} { \Edsizes(\CE) \df \bagwhere{\Ew(\E[i])}{\E[i] \in \CE} } % Definition of Edsizes.
+
+% Incidence clusterings (partitions of the incidence set I \subseteq V \times E)
+
+\newcommand {\CI} [1] [] { \graph{\mathcal{I}_{#1}} } % Partition of the incidence set I.
+\newcommand {\CIp} [1] [] { \graph{\mathcal{I}_{#1}'} }
+\newcommand {\CIpp} [1] [] { \graph{\mathcal{I}_{#1}''} }
+\newcommand {\CPI} [1] [] { \graph{\tilde{\mathcal{I}}_{#1}} } % Partial partition of I, where not every I must be covered.
+
+\newcommand {\CIdef} [2] [1] { \CI = \Is[#1]{#2} } % Expanded definition of CI in terms of clusters I[1], ..., I[k].
+\newcommand {\CPIdef} [2] [1] { \CPI = \Is[#1]{#2} } % Expanded definition of CPI in terms of clusters I[1], ..., I[k].
+
+\newcommand {\CIs} [1] [] { \graph{\Pi_{#1}} } % Set of all partitions of the incidences I \subseteq V \times E.
+\newcommand {\CPIs} [1] [] { \graph{\tilde{\Pi}_{#1}} } % Set of all partial partitions of the incidences I \subseteq V \times E.
+
+\newcommand {\Ipart} [2] [1] { \dotcupbtw{\I[#1]}{\I[#2]} } % Parititon of I presented as disjoint union.
+
+\newcommand {\Icol} [1] [] { \graph{\sigma_{#1}} } % Incidence colouring.
+\newcommand {\Ipcol} [1] [] { \graph{\sigma_{#1}'} }
+\newcommand {\Ippcol} [1] [] { \graph{\sigma_{#1}''} }
+
+\newcommand {\Icoldef} [2] [] { \Icol[#1] : \I \to \until{#2} } % Type ascription for incidence colouring.
+\newcommand {\PIcoldef} [2] [] { \Icol[#1] : \I \someto \until{#2} } % Type ascription for partial incidence colouring.
+
+\newcommand {\Icomp} { \graph{\bigpi} } % Incidences of the connected components.
+\newcommand {\Icompdef} [2] [1] { \Icomp(\H) = \Is[#1]{#2} } % Expanded definition of Icomp in terms of components I[1], ..., I[k].
+
+\newcommand {\Isizes} { \graph{\mathcal{M}} } % Multiset of number of incidences in each cluster.
+\newcommand {\Isizesdef} { \Isizes(\CX) \df \bagwhere{\Iw(\I(\X[i]))}{\X[i] \in \CX} } % Definition of Isizes.
+
+% Mixed element clusterings (partitions of the mixed element set X = V \cup E)
+
+\newcommand {\CX} [1] [] { \mixed{\mathcal{X}_{#1}} } % Partition of the mixed element set X.
+\newcommand {\CXp} [1] [] { \mixed{\mathcal{X}_{#1}'} }
+\newcommand {\CXpp} [1] [] { \mixed{\mathcal{X}_{#1}''} }
+\newcommand {\CPX} [1] [] { \mixed{\tilde{\mathcal{X}}_{#1}} } % Partial partition of X, where not every X must be covered.
+
+\newcommand {\CXdef} [2] [1] { \CX = \Xs[#1]{#2} } % Expanded definition of CX in terms of clusters X[1], ..., X[k].
+\newcommand {\CPXdef} [2] [1] { \CPX = \Xs[#1]{#2} } % Expanded definition of CPX in terms of clusters X[1], ..., X[k].
+
+\newcommand {\CXs} [1] [] { \mixed{\Pi_{#1}} } % Set of all partitions of the mixed elements X.
+\newcommand {\CPXs} [1] [] { \mixed{\tilde{\Pi}_{#1}} } % Set of all partial partitions of the mixed elements X.
+
+\newcommand {\Xpart} [2] [1] { \dotcupbtwsub[#1]{#2}{\X} } % Parititon of X presented as disjoint union.
+\newcommand {\VEpart} [2] [1] { \dotcupbtw{(\VcupE[#1])}{(\VcupE[#2])} } % Parititon of X presented as disjoint union of (V[i], E[i]) pairs.
+
+\newcommand {\Xcol} [1] [] { \mixed{\sigma_{#1}} } % Mixed element colouring.
+\newcommand {\Xpcol} [1] [] { \mixed{\sigma_{#1}'} }
+\newcommand {\Xppcol} [1] [] { \mixed{\sigma_{#1}''} }
+
+\newcommand {\Xcoldef} [2] [] { \Xcol[#1] : \X \to \until{#2} } % Type ascription for mixed element colouring.
+\newcommand {\PXcoldef} [2] [] { \Xcol[#1] : \X \someto \until{#2} } % Type ascription for partial mixed element colouring.
+
+\newcommand {\Xcomp} { \mixed{\bigpi} } % Mixed elements of the connected components.
+\newcommand {\Xcompdef} [2] [1] { \Xcomp(\H) = \Xs[#1]{#2} } % Expanded definition of Xcomp in terms of components X[1], ..., X[k].
+\newcommand {\VEcompdef} [2] [1] { \Xcomp(\H) = \VEs[#1]{#2} } % Expanded definition of Xcomp in terms of vertices and edges of components.
+
+\newcommand {\Xsizes} { \mixed{\mathcal{N}} } % Multiset of number of mixed elements in each cluster.
+\newcommand {\Xsizesdef} { \Xsizes(\CX) \df \bagwhere{\Xw(\X[i])}{\X[i] \in \CX} } % Definition of Xsizes.
+
+% Miscellaneous
+
+ % Equivalence class of a clustered element:
+ %   - write \class[\CV]{\v} to mean the cluster of CV in which v lies.
+ %   - write \class{\v} to mean the cluster in which v lies, with CV implicit.
+\newcommand {\class} [2] [] { [#2]_{\mkern-1.5mu\raisebox{-0.2ex}{\scalebox{0.6}{$#1$}}} }
+
+% Pi symbol in the style of a clustering,
+% used to denote vertices of connected components.
+\newcommand {\bigpi} {%
+    \mathchoice%
+        {\scalebox{1.5}{$\pi$}}
+        {\scalebox{1.5}{$\pi$}}
+        {\scalebox{1.05}{$\pi$}}
+        {\scalebox{0.8}{$\pi$}}
+}
+
+% Write \Vh \separates \CV to mean:
+%   "Once the vertex cutset Vh is removed, the connected components of CV are monochromatic".
+\newcommand {\separates} { \vDash }

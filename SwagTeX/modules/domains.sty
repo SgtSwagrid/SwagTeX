@@ -1,43 +1,117 @@
+% Package definition
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-domains}
+\ProvidesPackage{SwagTeX-domains}
 
 \RequirePackage{amsmath}
+\RequirePackage{SwagTeX/modules/collections}
 \RequirePackage{SwagTeX/modules/colours}
+\RequirePackage{SwagTeX/modules/functions}
 
 % Colours
 
 \newcommand {\collection} [1] { \col{collection}{#1} }
 \newcommand {\domain} [1] { \col{domain}{#1} }
+\newcommand {\element} [1] { \col{element}{#1} }
 
 % Domains
 
-\newcommand {\N} { \domain{\mathbb{N}} } % Natural numbers.
-\newcommand {\No} { \domain{\mathbb{N}_0} } % Natural numbers Inlcuding 0.
-\newcommand {\Ni} { \domain{\mathbb{N}_1} } % Natural numbers Excluding 0.
-\newcommand {\Z} { \domain{\mathbb{Z}} } % Integers.
-\newcommand {\Q} { \domain{\mathbb{Q}} } % Rational numbers.
-\newcommand {\R} { \domain{\mathbb{R}} } % Real numbers.
-\newcommand {\Rp} { \domain{\mathbb{R}^+} } % Positive numbers.
-\newcommand {\Rpp} { \domain{\mathbb{R}^{++}} } % Strictly positive numbers.
-\newcommand {\Rm} { \domain{\mathbb{R}^-} } % Negative numbers.
-\newcommand {\Rmm} { \domain{\mathbb{R}^{--}} } % Strictly negative numbers.
-\newcommand {\C} { \domain{\mathbb{C}} } % Complex numbers.
-\newcommand {\B} { \domain{\mathbb{B}} } % Booleans.
-\newcommand {\F} { \domain{\mathbb{F}} } % Arbitrary field.
+\newcommand {\B} [1] [] { \domain{\mathbb{B}_{#1}} } % Booleans.
+\newcommand {\N} [1] [] { \domain{\mathbb{N}_{#1}} } % Natural numbers.
+\newcommand {\No} { \N[0] } % Natural numbers Inlcuding 0.
+\newcommand {\Ni} { \N[1] } % Natural numbers Excluding 0.
+\newcommand {\Z} [1] [] { \domain{\mathbb{Z}_{#1}} } % Integers.
+\newcommand {\Q} [1] [] { \domain{\mathbb{Q}_{#1}} } % Rational numbers.
+\newcommand {\R} [1] [] { \domain{\mathbb{R}_{#1}} } % Real numbers.
+\newcommand {\Rp} [1] [] { \domain{\mathbb{R}_{#1}^+} } % Positive numbers.
+\newcommand {\Rpp} [1] [] { \domain{\mathbb{R}_{#1}^{++}} } % Strictly positive numbers.
+\newcommand {\Rm} [1] [] { \domain{\mathbb{R}_{#1}^-} } % Negative numbers.
+\newcommand {\Rmm} [1] [] { \domain{\mathbb{R}_{#1}^{--}} } % Strictly negative numbers.
+\newcommand {\C} [1] [] { \domain{\mathbb{C}_{#1}} } % Complex numbers.
+\newcommand {\Quat} [1] [] { \domain{\mathbb{H}_{#1}} } % Quaternions.
+\newcommand {\Oct} [1] [] { \domain{\mathbb{O}_{#1}} } % Octonions.
+\newcommand {\F} [1] [] { \domain{\mathbb{F}_{#1}} } % Arbitrary field.
+
+% Domains - definitions
+
+\newcommand {\Bdef} { \B \df \set{\true, \false} }
+\newcommand {\Nodef} { \No \df \N \cup \set{0} } % Define N0 to be N with 0.
+\newcommand {\Nidef} { \Ni \df \N \wo \set{0} } % Define N1 to be N without 0.
+\newcommand {\Zdef} { \Z \df \set{\dots, -2, -1, 0, 1, 2, \dots} }
+\newcommand {\Zkdef} [1] [k] { \Z[#1] \df \setbtw{0}{\domain{#1}-1} }
+\newcommand {\Qdef} { \Q \df \setwhere{\frac{\element{a}}{\element{b}}}{\element{a}, \element{b} \in \Z \land \element{b} \neq 0} } % Define Q to be set of integer fractions.
+\newcommand {\Cdef} { \C \df \setwhere{\element{a} + \element{b}i}{\element{a}, \element{b} \in \R} }
+\newcommand {\Quatdef} { \Quat \df \setwhere{\element{a} + \element{b} i + \element{c} j + \element{d} k}{\element{a}, \element{b}, \element{c}, \element{d} \in \R} }
+
+% Booleans
+
+\newcommand {\true} { \domain{\top} }
+\newcommand {\false} { \domain{\bot} }
+
+% Power sets
+
+\newcommand {\powerset} [1] { \B^{\collection{#1}} }
+\newcommand {\multisets} [1] { \N^{\collection{#1}} }
 
 % Arbitrary sets
 
-\renewcommand {\S} [1] [] { \collection{S_{#1}} } % Arbitrary set.
-\newcommand {\Sp} [1] [] { \collection{S_{#1}'} } % Arbitrary set.
-\newcommand {\Spp} [1] [] { \collection{S_{#1}''} } % Arbitrary set.
-\newcommand {\T} [1] [] { \collection{T_{#1}} } % Arbitrary set.
-\newcommand {\Tp} [1] [] { \collection{T_{#1}'} } % Arbitrary set.
-\newcommand {\Tpp} [1] [] { \collection{T_{#1}''} } % Arbitrary set.
+\renewcommand {\S} [1] [] { \collection{S_{#1}} } % Arbitrary set S.
+\newcommand {\Sp} [1] [] { \collection{S_{#1}'} } % Arbitrary set S'.
+\newcommand {\Spp} [1] [] { \collection{S_{#1}''} } % Arbitrary set S''.
+\newcommand {\Sh} [1] [] { \collection{\hat{S}_{#1}} } % Arbitrary set S hat.
+\newcommand {\Shp} [1] [] { \collection{\hat{S}_{#1}'} } % Arbitrary set.
+\newcommand {\Shpp} [1] [] { \collection{\hat{S}_{#1}''} } % Arbitrary set.
 
-\newcommand {\SF} [1] [] { \collection{\mathcal{F}_{#1}} } % Arbitrary set family.
-\newcommand {\SFp} [1] [] { \collection{\mathcal{F}_{#1}'} } % Arbitrary set family.
-\newcommand {\SFpp} [1] [] { \collection{\mathcal{F}_{#1}''} } % Arbitrary set family.
+\newcommand {\T} [1] [] { \collection{T_{#1}} } % Arbitrary set T.
+\newcommand {\Tp} [1] [] { \collection{T_{#1}'} } % Arbitrary set T'.
+\newcommand {\Tpp} [1] [] { \collection{T_{#1}''} } % Arbitrary set T''.
+\newcommand {\Th} [1] [] { \collection{\hat{T}_{#1}} } % Arbitrary set T hat.
+\newcommand {\Thp} [1] [] { \collection{\hat{T}_{#1}'} } % Arbitrary set.
+\newcommand {\Thpp} [1] [] { \collection{\hat{T}_{#1}''} } % Arbitrary set.
 
-\newcommand {\MS} [1] [] { \collection{M_{#1}} } % Arbitrary multiset.
-\newcommand {\MSp} [1] [] { \collection{M_{#1}'} } % Arbitrary multiset.
-\newcommand {\MSpp} [1] [] { \collection{M_{#1}''} } % Arbitrary multiset.
+% Arbitrary set families
+
+\newcommand {\SF} [1] [] { \collection{\mathcal{F}_{#1}} } % Arbitrary set family F.
+\newcommand {\SFp} [1] [] { \collection{\mathcal{F}_{#1}'} } % Arbitrary set family F'.
+\newcommand {\SFpp} [1] [] { \collection{\mathcal{F}_{#1}''} } % Arbitrary set family F''.
+\newcommand {\SFh} [1] [] { \collection{\hat{\mathcal{F}}_{#1}} } % Arbitrary set family F hat.
+\newcommand {\SFhp} [1] [] { \collection{\hat{\mathcal{F}}_{#1}'} } % Arbitrary set family.
+\newcommand {\SFhpp} [1] [] { \collection{\hat{\mathcal{F}}_{#1}''} } % Arbitrary set family.
+
+\newcommand {\SFdef} [1] [] { \SF[#1] \subseteq \powerset{\S[#1]} }
+\newcommand {\SFpdef} [1] [] { \SFp[#1] \subseteq \powerset{\Sp[#1]} }
+\newcommand {\SFppdef} [1] [] { \SFpp[#1] \subseteq \powerset{\Spp[#1]} }
+\newcommand {\SFhdef} [1] [] { \SFh[#1] \subseteq \powerset{\Sh[#1]} }
+\newcommand {\SFhpdef} [1] [] { \SFhp[#1] \subseteq \powerset{\Shp[#1]} }
+\newcommand {\SFhppdef} [1] [] { \SFhpp[#1] \subseteq \powerset{\Shpp[#1]} }
+
+% Arbitrary multisets
+
+\newcommand {\MS} [1] [] { \collection{M_{#1}} } % Arbitrary multiset M.
+\newcommand {\MSp} [1] [] { \collection{M_{#1}'} } % Arbitrary multiset M'.
+\newcommand {\MSpp} [1] [] { \collection{M_{#1}''} } % Arbitrary multiset M''.
+\newcommand {\MSh} [1] [] { \collection{\hat{M}_{#1}} } % Arbitrary multiset M hat.
+\newcommand {\MShp} [1] [] { \collection{\hat{M}_{#1}'} } % Arbitrary multiset.
+\newcommand {\MShpp} [1] [] { \collection{\hat{M}_{#1}''} } % Arbitrary multiset.
+
+\newcommand {\mult} [1] [] { \function{\mu_{#1}} } % Multiplicity function for a multiset.
+\newcommand {\multp} [1] [] { \function{\mu_{#1}'} } % Multiplicity function for a multiset.
+\newcommand {\multpp} [1] [] { \function{\mu_{#1}''} } % Multiplicity function for a multiset.
+
+\newcommand {\multdef} [1] [] { \mult[#1] : \S[#1] \to \N } % Type ascription of multiplicity function for a multiset.
+\newcommand {\multpdef} [1] [] { \multp[#1] : \S[#1] \to \N } % Type ascription of multiplicity function for a multiset.
+\newcommand {\multppdef} [1] [] { \multpp[#1] : \S[#1] \to \N } % Type ascription of multiplicity function for a multiset.
+
+\newcommand {\MSdef} [1] [] { \MS[#1] \df \tuple{\S[#1], \mult[#1]} } % Definition of a multiset.
+\newcommand {\MSpdef} [1] [] { \MSp[#1] \df \tuple{\Sp[#1], \multp[#1]} } % Definition of a multiset.
+\newcommand {\MSppdef} [1] [] { \MSpp[#1] \df \tuple{\Spp[#1], \multpp[#1]} } % Definition of a multiset.
+
+\newcommand {\MStype} [1] [] { \MS[#1] \in \multisets{\S[#1]} } % Type ascription of a multiset.
+\newcommand {\MSptype} [1] [] { \MSp[#1] \in \multisets{\Sp[#1]} } % Type ascription of a multiset.
+\newcommand {\MSpptype} [1] [] { \MSpp[#1] \in \multisets{\Spp[#1]} } % Type ascription of a multiset.
+
+% Arbitrary set elements
+
+\newcommand {\s} [1] [] { \element{s_{#1}} } % Arbitrary set element s \in S.
+\renewcommand {\sp} [1] [] { \element{s_{#1}'} } % Arbitrary set element s' \in S.
+\newcommand {\spp} [1] [] { \element{s_{#1}''} } % Arbitrary set element s'' \in S.

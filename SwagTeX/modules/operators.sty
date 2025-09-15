@@ -1,40 +1,110 @@
+% Package definition
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-operators}
+\ProvidesPackage{SwagTeX-operators}
 
-\RequirePackage{graphicx}
+% External dependencies
 
-% Quantifiers
+\RequirePackage {
+    graphicx,
+    amssymb,
+    cleveref,
+}
 
-\newcommand {\bigexists} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\exists$}}} \limits } % Existential quantifier.
-\newcommand {\bigforall} { \mathop{\raisebox{-0.5em}{\scalebox{2.1}{$\forall$}}} \limits } % Universal quantifier.
+% Large versions of operators for repeated forms with bounds
 
-% Relations
+\newcommand {\bigop} [1] {
+    \mathop {
+        \mathchoice
+          {\raisebox{-0.5em}{\scalebox{2.0}{$#1$}}} % displaystyle
+          {\raisebox{-0.25em}{\scalebox{1.5}{$#1$}}} % textstyle
+          {\scalebox{1.0}{$#1$}} % scriptstyle
+          {\scalebox{1.0}{$#1$}} % scriptscriptstyle
+    } \displaylimits
+}
+
+\newcommand {\bigopof} [2] { \bigop{#1}_{\substack{#2}} }
+
+% Standard reductions with in-built substacks
+
+\newcommand {\Sum} [1] { \sum_{\substack{#1}} } % Sum with substack.
+\newcommand {\Prod} [1] { \prod_{\substack{#1}} } % Product with substack.
+\renewcommand {\Cup} [1] { \bigcup_{\substack{#1}} } % Sum with substack.
+\renewcommand {\Cap} [1] { \bigcap_{\substack{#1}} } % Product with substack.
+
+% Logical quantifiers
+
+\newcommand {\Exists} [1] { \bigop{\exists}_{\substack{#1}} } % Existential quantifier.
+\renewcommand {\ForAll} [1] { \bigop{\forall}_{\substack{#1}} } % Universal quantifier.
+
+% Negated relations
 
 \newcommand {\nsubset} { \not\subset } % Not a strict subset.
 \renewcommand {\nsubseteq} { \not\subseteq } % Not a subset.
 \newcommand {\nsupset} { \not\supset } % Not a strict superset.
 \renewcommand {\nsupseteq} { \not\supseteq } % Not a superset.
 \newcommand {\notni} { \not\ni } % Doesn't contain.
+\newcommand {\ncong} { \not\cong }
+\newcommand {\ncongeq} { \not\congeq }
+\newcommand {\nsim} { \not\sim }
+\newcommand {\nsimeq} { \not\simeq }
 
-% Operators
+% Set operators
 
 \newcommand {\dotcup} { \mathbin{\dot{\cup}} } % Disjoint union.
-\newcommand {\bigdotcup} { \mathop{\dot{\bigcup}}\displaylimits } % Big disjoint union.
+\newcommand {\DotCup} [1] { \mathop{\dot{\bigcup}}_{\substack{#1}} } % Big disjoint union.
+\newcommand {\wo} { \setminus } % Shortend syntax for set difference; w/o is short for without.
 
-% Repeated operators
+% Explicitly repeated operators
 
-\newcommand {\capbtw} [2]  { #1 \cap \dots \cap #2 } % Repeated intersection from endpoints.
-\newcommand {\cupbtw} [2]  { #1 \cup \dots \cup #2 } % Repeated union sequence from endpoints.
-\newcommand {\dotcupbtw} [2] { #1 \dotcup \dots \dotcup #2 } % Repeated disjoint union from endpoints.
+\newcommand {\repeated} [3] { #2 #1 \dots #1 #3 } % Generic repeated operator.
+\newcommand {\repeatedsub} [4] { \repeated{#1}{#2[#3]}{#2[#4]} } % Generic repeated operator with parameterised bounds.
 
-% Numeric operators
+\newcommand {\btw} [2] { \repeated{,}{#1}{#2} } % Sequence with endpoints.
+\newcommand {\plusbtw} [2] { \repeated{+}{#1}{#2} } % Repeated addition from endpoints.
+\newcommand {\cdotbtw} [2] { \repeated{\cdot}{#1}{#2} } % Repeated multiplication from endpoints.
+\newcommand {\timesbtw} [2] { \repeated{\times}{#1}{#2} } % Repeated multiplication from endpoints.
+\newcommand {\oplusbtw} [2] { \repeated{\oplus}{#1}{#2} } % Repeated oplus from endpoints.
+\newcommand {\otimesbtw} [2] { \repeated{\otimes}{#1}{#2} } % Repeated otimes from endpoints.
+\newcommand {\capbtw} [2]  { \repeated{\cap}{#1}{#2} } % Repeated intersection from endpoints.
+\newcommand {\cupbtw} [2]  { \repeated{\cup}{#1}{#2} } % Repeated union sequence from endpoints.
+\newcommand {\dotcupbtw} [2] { \repeated{\dotcup}{#1}{#2} } % Repeated disjoint union from endpoints.
 
-\newcommand {\abs} [1] { \left| #1 \right| } % Absolute value
-\newcommand {\floor} [1] { \left\lfloor #1 \right\rfloor } % Round down
-\newcommand {\ceil} [1] { \left\lceil #1 \right\rceil } % Round up
-\newcommand {\round} [1] { \left\lceil #1 \right\rfloor } % Round nearest
+\newcommand {\btwsub} [3] [1] { \repeatedsub{,}{#3}{#1}{#2} } % Sequence with parameterised endpoints.
+\newcommand {\plusbtwsub} [3] [1] { \repeatedsub{+}{#3}{#1}{#2} } % Repeated addition from parameterised endpoints.
+\newcommand {\cdotbtwsub} [3] [1] { \repeatedsub{\cdot}{#3}{#1}{#2} } % Repeated multiplication from parameterised endpoints.
+\newcommand {\timesbtwsub} [3] [1] { \repeatedsub{\times}{#3}{#1}{#2} } % Repeated multiplication from parameterised endpoints.
+\newcommand {\oplusbtwsub} [3] [1] { \repeatedsub{\oplus}{#3}{#1}{#2} } % Repeated oplus from parameterised endpoints.
+\newcommand {\otimesbtwsub} [3] [1] { \repeatedsub{\otimes}{#3}{#1}{#2} } % Repeated otimes from parameterised endpoints.
+\newcommand {\capbtwsub} [3] [1] { \repeatedsub{\cap}{#3}{#1}{#2} } % Repeated intersection from parameterised endpoints.
+\newcommand {\cupbtwsub} [3] [1] { \repeatedsub{\cup}{#3}{#1}{#2} } % Repeated union sequence from parameterised endpoints.
+\newcommand {\dotcupbtwsub} [3] [1] { \repeatedsub{\dotcup}{#3}{#1}{#2} } % Repeated disjoint union from parameterised endpoints.
+
+% Rounding
+
+\newcommand {\abs} [1] { \left| #1 \right| } % Absolute value.
+\newcommand {\floor} [1] { \left\lfloor #1 \right\rfloor } % Round down.
+\newcommand {\ceil} [1] { \left\lceil #1 \right\rceil } % Round up.
+\newcommand {\round} [1] { \left\lceil #1 \right\rfloor } % Round to nearest.
 
 % Optimisation
 
-\DeclareMathOperator* {\argmin} { arg\,min }
-\DeclareMathOperator* {\argmax} { arg\,max }
+\DeclareMathOperator* {\argmin} { arg\,min } % The set of values which minimise a function.
+\DeclareMathOperator* {\argmax} { arg\,max } % The set of values which maximise a function.
+\DeclareMathOperator* {\arginf} { arg\,inf } % The set of values which minimise a function, or the empty set if there is no minimum.
+\DeclareMathOperator* {\argsup} { arg\,sup } % The set of values which maximise a function, or the empty set if there is no maximum.
+
+\newcommand {\Min} [1] { \min_{\substack{#1}} }
+\newcommand {\Max} [1] { \max_{\substack{#1}} }
+\newcommand {\Inf} [1] { \inf_{\substack{#1}} }
+\newcommand {\Sup} [1] { \sup_{\substack{#1}} }
+\newcommand {\ArgMin} [1] { \argmin_{\substack{#1}} }
+\newcommand {\ArgMax} [1] { \argmax_{\substack{#1}} }
+\newcommand {\ArgInf} [1] { \arginf_{\substack{#1}} }
+\newcommand {\ArgSup} [1] { \argsup_{\substack{#1}} }
+\newcommand {\Lim} [1] { \lim_{\substack{#1}} }
+
+% Specialised operators
+
+\DeclareMathOperator {\Maj} {Maj} % Majorisation of a vector or multiset.
+\DeclareMathOperator {\Sub} {Sub} % Subdivision of a vector or multiset.

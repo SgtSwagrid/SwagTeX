@@ -1,0 +1,94 @@
+% Package definition
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-probability}
+
+% External dependencies
+
+\RequirePackage {
+    amssymb,
+    amsmath,
+}
+
+% Internal dependencies
+
+\RequirePackage {
+    SwagTeX/modules/collections
+}
+
+% Probability
+
+\DeclareMathOperator {\Probability} {\function{\mathbb{P}r}}
+\renewcommand {\Pr} [2] [] { \Probability \limits_{#1} \seq{#2} }
+\newcommand {\CPr} [3] [] { \Pr[#1]{\where{#2}{#3}} }
+
+\newcommand {\CPrdef} {
+    \CPr{\collection{X}}{\collection{Y}} \df
+    \frac{\Pr{\collection{X} \land \collection{Y}}}{\Pr{\collection{Y}}}
+}
+
+% Expectation
+
+\DeclareMathOperator {\Expectation} {\function{\mathbb{E}}}
+\newcommand {\Ex} [2] [] { \Expectation \limits_{#1} \seq{#2} }
+\newcommand {\CEx} [3] [] { \Ex[#1]{\where{#2}{#3}} }
+
+\newcommand {\Exdef} {
+    \Ex{\collection{X}} \df
+    \sum_{\element{x} \in \sup(\collection{X})} \element{x} \cdot \Pr{\collection{X} = \element{x}}
+}
+
+\newcommand {\CExdef} {
+    \CEx{\collection{X}}{\collection{Y}} \df
+    \sum_{\element{x} \in \sup(\collection{X})} \element{x} \cdot \CPr{\collection{X} = \element{x}}{\collection{Y}}
+}
+
+% Variance
+
+\DeclareMathOperator {\Variance} {\function{\mathbb{V}ar}}
+\newcommand {\Var} [2] [] { \Variance \limits_{#1} \seq{#2} }
+\newcommand {\CVar} [3] [] { \Var[#1]{\where{#2}{#3}} }
+
+\newcommand {\Vardef} {
+    \Var{\collection{X}} \df
+    \Ex{(\collection{X} - \Ex{\collection{X}})^2}
+}
+
+\newcommand {\CVardef} {
+    \CVar{\collection{X}}{\collection{Y}} \df
+    \CEx{(\collection{X} - \CEx{\collection{X}}{\collection{Y}})^2}{\collection{Y}}
+}
+
+\DeclareMathOperator {\Unif} { Unif }
+
+% Entropy
+
+\DeclareMathOperator {\Entropy} {\function{H}}
+\newcommand {\Ent} [2] [] { \Entropy \limits_{#1} \seq{#2} }
+\newcommand {\CEnt} [3] [] { \Ent[#1] {\where{#2}{#3}} }
+
+\newcommand {\Entdef} [1] [2] {
+    \Ent{\collection{X}} \df
+    \Ex{-\log_{#1}(\Pr{\collection{X}})}
+}
+
+\newcommand {\CEntdef}  [1] [2] {
+    \CEnt{\collection{X}}{\collection{Y}} \df
+    \Ex{-\log_{#1}(\CPr{\collection{X}}{\collection{Y}})}
+}
+
+% Mutual Information
+
+\DeclareMathOperator {\MutualInformation} {\function{I}}
+\newcommand {\MI} [3] [] { \MutualInformation \limits_{#1} \seq{#2; #3} }
+\newcommand {\CMI} [4] [] { \MutualInformation \limits_{#1} \seq{#2; #3 \suchthat #4} }
+
+\newcommand {\MIdef} {
+    \MI{\collection{X}}{\collection{Y}} \df
+    \Ent{\collection{X}} - \CEnt{\collection{X}}{\collection{Y}}
+}
+
+\newcommand {\CMIdef} {
+    \CMI{\collection{X}}{\collection{Y}}{\collection{Z}} \df
+    \CEnt{\collection{X}}{\collection{Z}} - \CEnt{\collection{X}}{\collection{Y}, \collection{Z}}
+}

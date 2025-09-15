@@ -1,0 +1,25 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{SwagTeX/all}
+
+\usepackage{amsmath}
+
+\begin{document}
+    \Equations {
+        S
+        &= \set{a, b, \undernote{c, d}{??}, e} \spaceunder{1} \\
+        &= \set{z, y, s, w, 34}
+    }
+
+    \Equation {
+        \ForAll{x \in \V[i] \\ y \in Y \\ z \in Z} x \iff y
+    }
+
+    \Equation { \Sum{s \in S \\ t \in T} s^2 \cdot t = 19 }
+
+    Hello this is my very $\Sum{s \in S \\ t \in T \\ x \in X \\ y \in Y} s^2 \cdot t = 19$ stylish equation.
+
+    \Equation {
+        X = \Cup{x \in X} \set{x}
+    }
+    
+\end{document}

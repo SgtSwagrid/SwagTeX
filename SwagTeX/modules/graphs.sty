@@ -1,32 +1,50 @@
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-graphs}
+% Package definition
 
-\RequirePackage{amsfonts}
-\RequirePackage{ifthen}
-\RequirePackage{SwagTeX/modules/collections}
-\RequirePackage{SwagTeX/modules/colours}
-\RequirePackage{SwagTeX/modules/domains}
-\RequirePackage{SwagTeX/modules/functions}
-\RequirePackage{SwagTeX/modules/operators}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-graphs}
+
+% External dependencies
+
+\RequirePackage {
+    amsfonts,
+    bm,
+    ifthen,
+}
+
+% Internal dependencies
+
+\RequirePackage {
+    SwagTeX/modules/collections,
+    SwagTeX/modules/colours,
+    SwagTeX/modules/domains,
+    SwagTeX/modules/functions,
+    SwagTeX/modules/operators,
+}
 
 % Colours
 
 \newcommand {\graph} [1] { \col{graph}{#1} }
 \newcommand {\vertex} [1] { \col{vertex}{#1} }
 \newcommand {\edge} [1] { \col{edge}{#1} }
+\newcommand {\mixed} [1] { \col{mixed}{#1} }
+\newcommand {\graphop} [1] { \col{graphop}{#1} }
 
 % Graphs
 
-\newcommand {\G} [1] [] { \graph{G_{#1}} } % Graph.
-\newcommand {\Gp} [1] [] { \graph{G_{#1}'} }
-\newcommand {\Gpp} [1] [] { \graph{G_{#1}''} }
-\newcommand {\Gh} [1] [] { \graph{\hat{G}_{#1}} }
-\newcommand {\Ghp} [1] [] { \graph{\hat{G}_{#1}'} }
-\newcommand {\Ghpp} [1] [] { \graph{\hat{G}_{#1}''} }
+\newcommand {\G} [1] [] { \graph{\mathrm{G}_{#1}} } % Graph.
+\newcommand {\Gp} [1] [] { \graph{\mathrm{G}_{#1}'} }
+\newcommand {\Gpp} [1] [] { \graph{\mathrm{G}_{#1}''} }
+\newcommand {\Gh} [1] [] { \graph{\hat{\mathrm{G}}_{#1}} }
+\newcommand {\Ghp} [1] [] { \graph{\hat{\mathrm{G}}_{#1}'} }
+\newcommand {\Ghpp} [1] [] { \graph{\hat{\mathrm{G}}_{#1}''} }
 
-\newcommand {\Gd} [1] [] { \graph{\G_{#1}^{*}} } % Graph dual.
-\newcommand {\Gdd} [1] [] { \graph{\G_{#1}^{**}} } % Graph double dual.
-\newcommand {\Gdh} [1] [] { \graph{\hat{G}_{#1}^{*}} }
+% Graphs - duals
+
+\newcommand {\Gd} [1] [] { \graph{\G_{#1}^{\graph{*}}} } % Graph dual.
+\newcommand {\Gdd} [1] [] { \graph{\G_{#1}^{\graph{**}}} } % Graph double dual.
+\newcommand {\Gdh} [1] [] { \graph{\hat{G}_{#1}^{\graph{*}}} }
+
+% Graphs - definitions
 
 \newcommand {\GVE} [1] [] { \G[#1] = \VE[#1] } % Graph with definition
 \newcommand {\GdEV} [1] [] { \Gd[#1] = \EV[#1] } % Graph dual with definition.
@@ -34,336 +52,314 @@
 
 % Hypergraphs
 
-\renewcommand {\H} [1] [] { \graph{\mathcal{H}_{#1}} } % Hypergraph.
-\newcommand {\Hp} [1] [] { \graph{\mathcal{H}_{#1}'} }
-\newcommand {\Hpp} [1] [] { \graph{\mathcal{H}_{#1}''} }
-\newcommand {\Hh} [1] [] { \graph{\hat{\mathcal{H}}_{#1}} }
-\newcommand {\Hhp} [1] [] { \graph{\hat{\mathcal{H}}_{#1}'} }
-\newcommand {\Hhpp} [1] [] { \graph{\hat{\mathcal{H}}_{#1}''} }
+\renewcommand {\H} [1] [] { \graph{\mathrm{H}_{#1}} } % Hypergraph.
+\newcommand {\Hp} [1] [] { \graph{\mathrm{H}_{#1}'} }
+\newcommand {\Hpp} [1] [] { \graph{\mathrm{H}_{#1}''} }
+\newcommand {\Hh} [1] [] { \graph{\hat{\mathrm{H}}_{#1}} }
+\newcommand {\Hhp} [1] [] { \graph{\hat{\mathrm{H}}_{#1}'} }
+\newcommand {\Hhpp} [1] [] { \graph{\hat{\mathrm{H}}_{#1}''} }
 
-\newcommand {\Hd} [1] [] { \graph{\mathcal{H}_{#1}^{*}} } % Hypergraph dual.
-\newcommand {\Hdd} [1] [] { \graph{\mathcal{H}_{#1}^{**}} } % Hypergraph double dual.
-\newcommand {\Hdh} [1] [] { \graph{\hat{\mathcal{H}}_{#1}^{*}} }
+% Hypergraphs - duals
+
+\newcommand {\Hd} [1] [] { \graph{\mathrm{H}_{#1}^{\graph{*}}} } % Hypergraph dual.
+\newcommand {\Hdd} [1] [] { \graph{\mathrm{H}_{#1}^{\graph{**}}} } % Hypergraph double dual.
+\newcommand {\Hdh} [1] [] { \graph{\hat{\mathrm{H}}_{#1}^{\graph{*}}} }
+
+\newcommand {\Hddef} [1] [] { \Hd[#1] \df (\E[#1], \V[#1])_{\Eb} }
+
+% Hypergraphs - definitions
 
 \newcommand {\HVE} [1] [] { \H[#1] = \VE[#1] } % Hypergraph with definition.
 \newcommand {\HdEV} [1] [] { \Hd[#1] = \EV[#1] } % Hypergraph dual with definition.
 
-% Vertex sets
+% Vertices - vertex sets
 
-\newcommand {\U} [1] [] { \vertex{U_{#1}} } % Vertex set.
-\newcommand {\Uc} [1] [] { \vertex{U_{#1}^{c}} } % Vertex set complement.
-\newcommand {\Up} [1] [] { \vertex{U_{#1}'} } % Vertex subset.
-\newcommand {\Upp} [1] [] { \vertex{U_{#1}''} } % Vertex subset.
-\newcommand {\Uh} [1] [] { \vertex{\hat{U}_{#1}} } % Vertex cutset.
-\newcommand {\Uhc} [1] [] { \vertex{\hat{U}_{#1}^{c}} } % Vertex cutset complement.
-\newcommand {\Uhp} [1] [] { \vertex{\hat{U}_{#1}'} } % Vertex cutset.
-\newcommand {\Uhpp} [1] [] { \vertex{\hat{U}_{#1}''} } % Vertex cutset.
+\newcommand {\Vrm} { \mathrm{V} } % V in upright font.
+\newcommand {\Vrmh} { \hat{\Vrm} }
 
-\newcommand {\V} [1] [] { \vertex{V_{#1}} } % Vertex set.
-\newcommand {\Vc} [1] [] { \vertex{V_{#1}^{c}} } % Vertex set complement.
-\newcommand {\Vp} [1] [] { \vertex{V_{#1}'} } % Vertex subset.
-\newcommand {\Vpp} [1] [] { \vertex{V_{#1}''} } % Vertex subset.
-\newcommand {\Vh} [1] [] { \vertex{\hat{V}_{#1}} } % Vertex cutset.
-\newcommand {\Vhc} [1] [] { \vertex{\hat{V}_{#1}^{c}} } % Vertex cutset complement.
-\newcommand {\Vhp} [1] [] { \vertex{\hat{V}_{#1}'} } % Vertex cutset.
-\newcommand {\Vhpp} [1] [] { \vertex{\hat{V}_{#1}''} } % Vertex cutset.
+\newcommand {\V} [1] [] { \vertex{\Vrm_{#1}} } % Vertex set.
+\newcommand {\Vp} [1] [] { \vertex{\Vrm_{#1}'} } % Vertex subset.
+\newcommand {\Vpp} [1] [] { \vertex{\Vrm_{#1}''} } % Vertex subset.
+\newcommand {\Vh} [1] [] { \vertex{\Vrmh_{#1}} } % Vertex cutset.
+\newcommand {\Vhp} [1] [] { \vertex{\Vrmh_{#1}'} } % Vertex cutset.
+\newcommand {\Vhpp} [1] [] { \vertex{\Vrmh_{#1}''} } % Vertex cutset.
 
-% Vertex partitions
+\newcommand {\Vc} [1] [] { \vertex{\Vrm_{#1}^{\compl}} } % Vertex set complement.
+\newcommand {\Vhc} [1] [] { \vertex{\Vrmh_{#1}^{\compl}} } % Vertex cutset complement.
 
-\newcommand {\Us} [2] [1] { \setbtw{\U[#1]}{\U[#2]} }
-\newcommand {\Ups} [2] [1] { \setbtw{\Up[#1]}{\Up[#2]} }
-\newcommand {\Upps} [2] [1] { \setbtw{\Upp[#1]}{\Upp[#2]} }
-\newcommand {\Uhs} [2] [1] { \setbtw{\Uh[#1]}{\Uh[#2]} }
-\newcommand {\Uhps} [2] [1] { \setbtw{\Uhp[#1]}{\Uhp[#2]} }
-\newcommand {\Uhpps} [2] [1] { \setbtw{\Uhpp[#1]}{\Uhpp[#2]} }
+% Vertices - subset definitions
 
-\newcommand {\Vs} [2] [1] { \setbtw{\V[#1]}{\V[#2]} }
-\newcommand {\Vps} [2] [1] { \setbtw{\Vp[#1]}{\Vp[#2]} }
-\newcommand {\Vpps} [2] [1] { \setbtw{\Vpp[#1]}{\Vpp[#2]} }
-\newcommand {\Vhs} [2] [1] { \setbtw{\Vh[#1]}{\Vh[#2]} }
-\newcommand {\Vhps} [2] [1] { \setbtw{\Vhp[#1]}{\Vhp[#2]} }
-\newcommand {\Vhpps} [2] [1] { \setbtw{\Vhpp[#1]}{\Vhpp[#2]} }
+\newcommand {\Vpdef} [1] [] { \Vp[#1] \subseteq \V }
+\newcommand {\Vppdef} [1] [] { \Vpp[#1] \subseteq \V }
+\newcommand {\Vhdef} [1] [] { \Vh[#1] \subseteq \V }
+\newcommand {\Vhpdef} [1] [] { \Vhp[#1] \subseteq \V }
+\newcommand {\Vhppdef} [1] [] { \Vhpp[#1] \subseteq \V }
+\newcommand {\Vhcdef} [1] [] { \Vhc[#1] \df \V \setminus \Vh[#1] }
 
-\newcommand {\Upartition} [2] [1] { \dotcupbtw{\U[#1]}{\U[#2]} }
-\newcommand {\Uppartition} [2] [1] { \dotcupbtw{\Up[#1]}{\Up[#2]} }
-\newcommand {\Upppartition} [2] [1] { \dotcupbtw{\Upp[#1]}{\Upp[#2]} }
-\newcommand {\Uhpartition} [2] [1] { \dotcupbtw{\Uh[#1]}{\Uh[#2]} }
-\newcommand {\Uhppartition} [2] [1] { \dotcupbtw{\Uhp[#1]}{\Uhp[#2]} }
-\newcommand {\Uhpppartition} [2] [1] { \dotcupbtw{\Uhpp[#1]}{\Uhpp[#2]} }
+% Vertices - partitions
 
-\newcommand {\Vpartition} [2] [1] { \dotcupbtw{\V[#1]}{\V[#2]} }
-\newcommand {\Vppartition} [2] [1] { \dotcupbtw{\Vp[#1]}{\Vp[#2]} }
-\newcommand {\Vpppartition} [2] [1] { \dotcupbtw{\Vpp[#1]}{\Vpp[#2]} }
-\newcommand {\Vhpartition} [2] [1] { \dotcupbtw{\Vh[#1]}{\Vh[#2]} }
-\newcommand {\Vhppartition} [2] [1] { \dotcupbtw{\Vhp[#1]}{\Vhp[#2]} }
-\newcommand {\Vhpppartition} [2] [1] { \dotcupbtw{\Vhpp[#1]}{\Vhpp[#2]} }
+\newcommand {\Vs} [2] [1] { \setbtwsub[#1]{#2}{\V} }
+\newcommand {\Vps} [2] [1] { \setbtwsub[#1]{#2}{\Vp} }
+\newcommand {\Vpps} [2] [1] { \setbtwsub[#1]{#2}{\Vpp} }
+\newcommand {\Vhs} [2] [1] { \setbtwsub[#1]{#2}{\Vh} }
+\newcommand {\Vhps} [2] [1] { \setbtwsub[#1]{#2}{\Vhp} }
+\newcommand {\Vhpps} [2] [1] { \setbtwsub[#1]{#2}{\Vhpp} }
 
-% Vertex subset definitions
-
-\newcommand {\Updef} [1] [] { \Up[#1] \subseteq \U[#1] }
-\newcommand {\Uppdef} [1] [] { \Upp[#1] \subseteq \U[#1] }
-\newcommand {\Uhdef} [1] [] { \Uh[#1] \subseteq \U[#1] }
-\newcommand {\Uhcdef} [1] [] { \Uhc[#1] \defeq \U[#1] \setminus \Uh[#1] }
-\newcommand {\Uhpdef} [1] [] { \Uhp[#1] \subseteq \U[#1] }
-\newcommand {\Uhppdef} [1] [] { \Uhpp[#1] \subseteq \U[#1] }
-
-\newcommand {\Vpdef} [1] [] { \Vp[#1] \subseteq \V[#1] }
-\newcommand {\Vppdef} [1] [] { \Vpp[#1] \subseteq \V[#1] }
-\newcommand {\Vhdef} [1] [] { \Vh[#1] \subseteq \V[#1] }
-\newcommand {\Vhcdef} [1] [] { \Vhc[#1] \defeq \V[#1] \setminus \Vh[#1] }
-\newcommand {\Vhpdef} [1] [] { \Vhp[#1] \subseteq \V[#1] }
-\newcommand {\Vhppdef} [1] [] { \Vhpp[#1] \subseteq \V[#1] }
-
-% Vertices
+% Vertices - individual
 
 \renewcommand {\u} [1] [] { \vertex{u_{#1}} } % Vertex.
 \newcommand {\up} [1] [] { \vertex{u_{#1}'} }
 \newcommand {\upp} [1] [] { \vertex{u_{#1}''} }
-\newcommand {\uh} [1] [] { \vertex{\hat{u}_{#1}} }
-\newcommand {\uhp} [1] [] { \vertex{\hat{u}_{#1}'} }
-\newcommand {\uhpp} [1] [] { \vertex{\hat{u}_{#1}''} }
 
 \renewcommand {\v} [1] [] { \vertex{v_{#1}} } % Vertex.
 \newcommand {\vp} [1] [] { \vertex{v_{#1}'} }
 \newcommand {\vpp} [1] [] { \vertex{v_{#1}''} }
-\newcommand {\vh} [1] [] { \vertex{\hat{v}_{#1}} }
-\newcommand {\vhp} [1] [] { \vertex{\hat{v}_{#1}'} }
-\newcommand {\vhpp} [1] [] { \vertex{\hat{v}_{#1}''} }
 
-\newcommand {\us} [2] [1] { \setbtw{\u[#1]}{\u[#2]} }
-\newcommand {\ups} [2] [1] { \setbtw{\up[#1]}{\up[#2]} }
-\newcommand {\upps} [2] [1] { \setbtw{\upp[#1]}{\upp[#2]} }
-\newcommand {\uhs} [2] [1] { \setbtw{\uh[#1]}{\uh[#2]} }
-\newcommand {\uhps} [2] [1] { \setbtw{\uhp[#1]}{\uhp[#2]} }
-\newcommand {\uhpps} [2] [1] { \setbtw{\uhpp[#1]}{\uhpp[#2]} }
+% Vertices - collections
 
-\newcommand {\vs} [2] [1] { \setbtw{\v[#1]}{\v[#2]} }
-\newcommand {\vps} [2] [1] { \setbtw{\vp[#1]}{\vp[#2]} }
-\newcommand {\vpps} [2] [1] { \setbtw{\vpp[#1]}{\vpp[#2]} }
-\newcommand {\vhs} [2] [1] { \setbtw{\vh[#1]}{\vh[#2]} }
-\newcommand {\vhps} [2] [1] { \setbtw{\vhp[#1]}{\vhp[#2]} }
-\newcommand {\vhpps} [2] [1] { \setbtw{\vhpp[#1]}{\vhpp[#2]} }
+\newcommand {\us} [2] [1] { \setbtwsub[#1]{#2}{\u} }
+\newcommand {\ups} [2] [1] { \setbtwsub[#1]{#2}{\up} }
+\newcommand {\upps} [2] [1] { \setbtwsub[#1]{#2}{\upp} }
 
-\newcommand {\uv} [1] [] { \u[#1], \v[#1] }
+\newcommand {\vs} [2] [1] { \setbtwsub[#1]{#2}{\v} }
+\newcommand {\vps} [2] [1] { \setbtwsub[#1]{#2}{\vp} }
+\newcommand {\vpps} [2] [1] { \setbtwsub[#1]{#2}{\vpp} }
 
-% Edge sets
+\newcommand {\uv} [1] [] { \u[#1], \v[#1] } % Pair of u and v together.
 
-\newcommand {\E} [1] [] { \edge{E_{#1}} } % Edge set.
-\newcommand {\Ec} [1] [] { \edge{E_{#1}^{c}} } % Edge set complement.
-\newcommand {\Ep} [1] [] { \edge{E_{#1}'} } % Edge subset.
-\newcommand {\Epp} [1] [] { \edge{E_{#1}''} } % Edge subset.
-\newcommand {\Eh} [1] [] { \edge{\hat{E}_{#1}} } % Edge cutset.
-\newcommand {\Ehc} [1] [] { \edge{\hat{E}_{#1}^{c}} } % Edge cutset complement.
-\newcommand {\Ehp} [1] [] { \edge{\hat{E}_{#1}'} } % Edge cutset.
-\newcommand {\Ehpp} [1] [] { \edge{\hat{E}_{#1}''} } % Edge cutset.
+% Edges - edge sets
 
-\newcommand {\HE} [1] [] { \edge{\mathcal{F}_{#1}} } % Hyperedge set.
+\newcommand {\Erm} { \mathrm{E} } % E in upright font.
+\newcommand {\Ermh} { \hat{\Erm} }
 
-% Edge partitions
+\newcommand {\E} [1] [] { \edge{\Erm_{#1}} } % Edge set.
+\newcommand {\Ep} [1] [] { \edge{\Erm_{#1}'} } % Edge subset.
+\newcommand {\Epp} [1] [] { \edge{\Erm_{#1}''} } % Edge subset.
+\newcommand {\Eh} [1] [] { \edge{\Ermh_{#1}} } % Edge cutset.
+\newcommand {\Ehp} [1] [] { \edge{\Ermh_{#1}'} } % Edge cutset.
+\newcommand {\Ehpp} [1] [] { \edge{\Ermh_{#1}''} } % Edge cutset.
 
-\newcommand {\Es} [2] [1] { \setbtw{\E[#1]}{\E[#2]} }
-\newcommand {\Eps} [2] [1] { \setbtw{\Ep[#1]}{\Ep[#2]} }
-\newcommand {\Epps} [2] [1] { \setbtw{\Epp[#1]}{\Epp[#2]} }
-\newcommand {\Ehs} [2] [1] { \setbtw{\Eh[#1]}{\Eh[#2]} }
-\newcommand {\Ehps} [2] [1] { \setbtw{\Ehp[#1]}{\Ehp[#2]} }
-\newcommand {\Ehpps} [2] [1] { \setbtw{\Ehpp[#1]}{\Ehpp[#2]} }
+\newcommand {\Ec} [1] [] { \edge{\Erm_{#1}^{\compl}} } % Edge set complement.
+\newcommand {\Ehc} [1] [] { \edge{\Ermh_{#1}^{\compl}} } % Edge cutset complement.
 
-\newcommand {\Epartition} [2] [1] { \dotcupbtw{\E[#1]}{\E[#2]} }
-\newcommand {\Eppartition} [2] [1] { \dotcupbtw{\Ep[#1]}{\Ep[#2]} }
-\newcommand {\Epppartition} [2] [1] { \dotcupbtw{\Epp[#1]}{\Epp[#2]} }
-\newcommand {\Ehpartition} [2] [1] { \dotcupbtw{\Eh[#1]}{\Eh[#2]} }
-\newcommand {\Ehppartition} [2] [1] { \dotcupbtw{\Ehp[#1]}{\Ehp[#2]} }
-\newcommand {\Ehpppartition} [2] [1] { \dotcupbtw{\Ehpp[#1]}{\Ehpp[#2]} }
+% Edges - subset definitions
 
-% Edge subset definitions
+\newcommand {\Epdef} [1] [] { \Ep[#1] \subseteq \E }
+\newcommand {\Eppdef} [1] [] { \Epp[#1] \subseteq \E }
+\newcommand {\Ehdef} [1] [] { \Eh[#1] \subseteq \E }
+\newcommand {\Ehpdef} [1] [] { \Ehp[#1] \subseteq \E }
+\newcommand {\Ehppdef} [1] [] { \Ehpp[#1] \subseteq \E }
+\newcommand {\Ehcdef} [1] [] { \Ehc[#1] \df \E \wo \Eh[#1] }
 
-\newcommand {\Epdef} [1] [] { \Ep[#1] \subseteq \E[#1] }
-\newcommand {\Eppdef} [1] [] { \Epp[#1] \subseteq \E[#1] }
-\newcommand {\Ehdef} [1] [] { \Eh[#1] \subseteq \E[#1] }
-\newcommand {\Ehcdef} [1] [] { \Ehc[#1] \defeq \E[#1] \setminus \Eh[#1] }
-\newcommand {\Ehpdef} [1] [] { \Ehp[#1] \subseteq \E[#1] }
-\newcommand {\Ehppdef} [1] [] { \Ehpp[#1] \subseteq \E[#1] }
+% Edges - partitions
 
-% Edges
+\newcommand {\Es} [2] [1] { \setbtwsub[#1]{#2}{\E} }
+\newcommand {\Eps} [2] [1] { \setbtwsub[#1]{#2}{\Ep} }
+\newcommand {\Epps} [2] [1] { \setbtwsub[#1]{#2}{\Epp} }
+\newcommand {\Ehs} [2] [1] { \setbtwsub[#1]{#2}{\Eh} }
+\newcommand {\Ehps} [2] [1] { \setbtwsub[#1]{#2}{\Ehp} }
+\newcommand {\Ehpps} [2] [1] { \setbtwsub[#1]{#2}{\Ehpp} }
+
+% Edges - individual
 
 \newcommand {\e} [1] [] { \edge{e_{#1}} } % Edge.
 \newcommand {\ep} [1] [] { \edge{e_{#1}'} }
 \newcommand {\epp} [1] [] { \edge{e_{#1}''} }
-\newcommand {\eh} [1] [] { \edge{\hat{e}_{#1}} }
-\newcommand {\ehp} [1] [] { \edge{\hat{e}_{#1}'} }
-\newcommand {\ehpp} [1] [] { \edge{\hat{e}_{#1}''} }
 
-% Adjacency
+% Incidences - collections
 
-\newcommand {\adj} [3] [] { #2 \sim_{#1} #3 } % Adjacency predicate.
+\newcommand {\Irm} { \mathrm{I} } % I in upright font.
 
-\newcommand {\NV} [1] [] { \vertex{N_{#1}} } % Vertex neighbourhood.
-\newcommand {\NE} [1] [] { \edge{N_{#1}} } % Edge neighbourhood.
-\newcommand {\NVof} [2] [] { \NV\induced[#1]{#2} }
-\newcommand {\NEof} [2] [] { \NE\induced[#1]{#2} }
-\newcommand {\NVi} [2] [] { \NV[#1]\induced[i]{#2} } % Inclusive vertex neighbourhood.
-\newcommand {\NVx} [2] [] { \NV[#1]\induced[x]{#2} } % Exclusive vertex neighbourhood.
-\newcommand {\NEi} [2] [] { \NE[#1]\induced[i]{#2} } % Inclusive edge neighbourhood.
-\newcommand {\NEx} [2] [] { \NE[#1]\induced[x]{#2} } % Exclusive edge neighbourhood.
+\newcommand {\I} [1] [] { \graph{\Irm_{#1}} } % Incidence set.
+\newcommand {\Ip} [1] [] { \graph{\Irm_{#1}} } % Incidence subset.
+\newcommand {\Ipp} [1] [] { \graph{\Irm_{#1}} } % Incidence subset.
+\newcommand {\Id} [1] [] { \graph{\Irm_{#1}^{*}} } % Incidence set dual.
 
-% Incidence
+% Incidences - definitions
 
-\newcommand {\I} [1] [] { \graph{I_{#1}} } % Incidence set.
-\newcommand {\Id} [1] [] { \graph{I_{#1}^{*}} } % Incidence set dual.
-
+\newcommand {\Idef} [1] [] { \I[#1] \df \setwhere{\ve \in \VtimesE[#1]}{\v \in \e} }
+\newcommand {\Iddef} [1] [] { \Id[#1] \df \setwhere{\ev \in \EtimesV[#1]}{\e \in \v} }
 \newcommand {\Itype} [1] [] { \I[#1] \subseteq \VtimesE[#1] }
 \newcommand {\Idtype} [1] [] { \Id[#1] \subseteq \EtimesV[#1] }
-\newcommand {\Idef} [1] [] { \I[#1] \defeq \setwhere{\ve \in \VtimesE[#1]}{\vine} }
-\newcommand {\Iddef} [1] [] { \Id[#1] \defeq \setwhere{\ev \in \EtimesV[#1]}{\eniv} }
+
+% Incidences - shortcuts
 
 \newcommand {\VE} [1] [] { (\V[#1], \E[#1]) }
 \newcommand {\EV} [1] [] { (\E[#1], \V[#1]) }
 \newcommand {\VtimesE} [1] [] { \V[#1] \times \E[#1] }
 \newcommand {\EtimesV} [1] [] { \E[#1] \times \V[#1] }
-\newcommand {\VcupE} [1] [] { \V[#1] \dotcup \E[#1] }
-\newcommand {\EcupV} [1] [] { \E[#1] \dotcup \V[#1] }
 \newcommand {\ve} [1] [] { (\v[#1], \e[#1]) }
 \newcommand {\ev} [1] [] { (\e[#1], \v[#1]) }
 
+% Incidences - partitions
+
+\newcommand {\Is} [2] [1] { \setbtwsub[#1]{#2}{\I} }
+\newcommand {\Ips} [2] [1] { \setbtwsub[#1]{#2}{\Ip} }
+\newcommand {\Ipps} [2] [1] { \setbtwsub[#1]{#2}{\Ipp} }
+
+% Mixed elements - collections
+
+\newcommand {\Xrm} { \mathrm{X} } % X in upright font.
+\newcommand {\Xrmh} { \hat{\Xrm} }
+
+\newcommand {\X} [1] [] { \mixed{\Xrm_{#1}} } % Mixed element set.
+\newcommand {\Xp} [1] [] { \mixed{\Xrm_{#1}'} } % Mixed element subset.
+\newcommand {\Xpp} [1] [] { \mixed{\Xrm_{#1}''} } % Mixed element subset.
+\newcommand {\Xh} [1] [] { \mixed{\Xrmh_{#1}} } % Mixed element cutset.
+\newcommand {\Xhc} [1] [] { \mixed{\Xrmh_{#1}^{\compl}} } % Complemenmt of mixed element cutset.
+
+% Mixed elements - definitions
+
+\newcommand {\Xdef} [1] [] { \X[#1] \df \VcupE[#1] }
+\newcommand {\Xpdef} [1] [] { \Xp[#1] \df \Vp[#1] \dotcup \Ep[#1] }
+\newcommand {\Xppdef} [1] [] { \Xpp[#1] \df \Vpp[#1] \dotcup \Epp[#1] }
+
+% Mixed elements - shortcuts
+
+\newcommand {\VcupE} [1] [] { \V[#1] \dotcup \E[#1] }
+\newcommand {\EcupV} [1] [] { \E[#1] \dotcup \V[#1] }
+
+% Mixed elements - partitions
+
+\newcommand {\Xs} [2] [1] { \setbtwsub[#1]{#2}{\X} }
+\newcommand {\Xps} [2] [1] { \setbtwsub[#1]{#2}{\Xp} }
+\newcommand {\Xpps} [2] [1] { \setbtwsub[#1]{#2}{\Xpp} }
+\newcommand {\VEs} [2] [1] { \setbtwsub[#1]{#2}{\VcupE} }
+\newcommand {\EVs} [2] [1] {\setbtwsub[#1]{#2}{\EcupV} }
+
+% Mixed elements - individual
+
+\newcommand {\x} [1] [] { \mixed{x_{#1}} } % A single vertex or edge.
+\newcommand {\y} [1] [] { \mixed{y_{#1}} } % A single vertex or edge.
+
+% Adjacency and neighbourhoods
+
+\newcommand {\adj} [3] [] { #2 \sim_{#1} #3 } % Adjacency predicate.
+
+\newcommand {\NV} [1] [] { \vertex{N_{#1}} } % Vertex neighbourhood.
+\newcommand {\NE} [1] [] { \edge{N_{#1}} } % Edge neighbourhood.
+\newcommand {\NVof} [2] [] { \NV\of[#1]{#2} }
+\newcommand {\NEof} [2] [] { \NE\of[#1]{#2} }
+\newcommand {\NVi} [2] [] { \NV[#1]\of[i]{#2} } % Inclusive vertex neighbourhood.
+\newcommand {\NVx} [2] [] { \NV[#1]\of[x]{#2} } % Exclusive vertex neighbourhood.
+\newcommand {\NEi} [2] [] { \NE[#1]\of[i]{#2} } % Inclusive edge neighbourhood.
+\newcommand {\NEx} [2] [] { \NE[#1]\of[x]{#2} } % Exclusive edge neighbourhood.
+
 % Weights
 
-\newcommand {\Vw} [1] [] { \vertex{w_{#1}} } % Vertex weights.
+\newcommand {\Vw} [1] [] { \vertex{\omega_{#1}} } % Vertex weights.
 \newcommand {\Ew} [1] [] { \edge{\omega_{#1}} } % Edge weights.
-\newcommand {\Vwdef} [1] [] { \deffn{\Vw[#1]}{\V}{\Rp} } % Vertex weights with definition.
-\newcommand {\Ewdef} [1] [] { \deffn{\Ew[#1]}{\E}{\Rp} } % Edge weights with definition.
+\newcommand {\Iw} [1] [] { \graph{\omega_{#1}} } % Incidence weights.
+\newcommand {\Xw} [1] [] { \mixed{\omega_{#1}} } % Mixed weights.
+
+\newcommand {\Vwp} [1] [] { \vertex{\omega_{#1}'} } % Alternative vertex weights.
+\newcommand {\Ewp} [1] [] { \edge{\omega_{#1}'} } % Alternative edge weights.
+\newcommand {\Iwp} [1] [] { \graph{\omega_{#1}'} } % Alternative incidence weights.
+\newcommand {\Xwp} [1] [] { \mixed{\omega_{#1}'} } % Alternative mixed weights.
+
+\newcommand {\Vwdef} [1] [] { \Vw[#1] : \V \to \Rpp } % Vertex weights with definition.
+\newcommand {\Ewdef} [1] [] { \Ew[#1] : \E \to \Rpp } % Edge weights with definition.
+\newcommand {\Iwdef} [1] [] { \Iw[#1] : \I \to \Rpp } % Incidence weights with definition.
+\newcommand {\Xwdef} [1] [] { \Xw[#1] : \X \to \Rpp } % Mixed weights with definition.
 
 % Induced sets
 
-\newcommand {\induced} [2] [] {
-    \ifthenelse{\equal{#1}{e}} {\edgeinduced{#2}} { % e = edge induced <>
-        \ifthenelse{\equal{#1}{x}} {\stronglyinduced{#2}} { % x = strongly induced / exclusive ()
-            \ifthenelse{\equal{#1}{i}} {\weaklyinduced{#2}} { % i = weakly induced / inclusive []
-                \weaklyinduced{#2} % Default
-            }
-        }
-    }
+\newcommand {\of} [2] [] {
+    \ifthenelse {\equal{#1}{e}} {\ofe{#2}} { % e = edge induced <>
+    \ifthenelse {\equal{#1}{x}} {\ofx{#2}} { % x = strongly induced / exclusive ()
+    \ifthenelse {\equal{#1}{i}} {\ofi{#2}} { % i = weakly induced / inclusive []
+    \ifthenelse {\equal{#1}{n}} {\ofn{#2}} {
+    \ofi{#2} % Default
+    }}}}
 }
 
-\newcommand {\weaklyinduced} [2] [] { #1 [#2 \!\:] } % Parameter of weakly induced subgraph.
-\newcommand {\stronglyinduced} [2] [] { #1 (#2 \!\:) } % Parameter of strongly induced subgraph.
-\newcommand {\edgeinduced} [2] [] { #1 \langle #2 \!\:\rangle } % Parameter of edge induced subgraph.
-
-% Induced subgraphs
-
-\newcommand {\Gof} [2] [] { \G\induced[#1]{#2} }
-\newcommand {\Gpof} [2] [] { \Gp\induced[#1]{#2} }
-\newcommand {\Gppof} [2] [] { \Gpp\induced[#1]{#2} }
-\newcommand {\Ghof} [2] [] { \Gh\induced[#1]{#2} }
-\newcommand {\Ghpof} [2] [] { \Ghp\induced[#1]{#2} }
-\newcommand {\Ghppof} [2] [] { \Ghpp\induced[#1]{#2} }
-\newcommand {\Gdof} [2] [] { \Gd\induced[#1]{#2} }
-\newcommand {\Gdhof} [2] [] { \Gdh\induced[#1]{#2} }
-
-\newcommand {\Hof} [2] [] { \H\induced[#1]{#2} }
-\newcommand {\Hpof} [2] [] { \Hp\induced[#1]{#2} }
-\newcommand {\Hppof} [2] [] { \Hpp\induced[#1]{#2} }
-\newcommand {\Hhof} [2] [] { \Hh\induced[#1]{#2} }
-\newcommand {\Hhpof} [2] [] { \Hhp\induced[#1]{#2} }
-\newcommand {\Hhppof} [2] [] { \Hhpp\induced[#1]{#2} }
-\newcommand {\Hdof} [2] [] { \Hd\induced[#1]{#2} }
-\newcommand {\Hdhof} [2] [] { \Hdh\induced[#1]{#2} }
-
-% Induced edges
-
-\newcommand {\Eof} [2] [] { \E\induced[#1]{#2} }
-\newcommand {\Ecof} [2] [] { \Ec\induced[#1]{#2} }
-\newcommand {\Epof} [2] [] { \Ep\induced[#1]{#2} }
-\newcommand {\Eppof} [2] [] { \Epp\induced[#1]{#2} }
-\newcommand {\Ehof} [2] [] { \Eh\induced[#1]{#2} }
-\newcommand {\Ehcof} [2] [] { \Ehc\induced[#1]{#2} }
-\newcommand {\Ehpof} [2] [] { \Ehp\induced[#1]{#2} }
-\newcommand {\Ehppof} [2] [] { \Ehpp\induced[#1]{#2} }
+\newcommand {\ofi} [2] [] { #1 [#2] } % Parameter of weakly induced subgraph.
+\newcommand {\ofx} [2] [] { #1 (#2) } % Parameter of strongly induced subgraph.
+\newcommand {\ofe} [2] [] { #1 \langle #2 \rangle } % Parameter of edge induced subgraph.
+\newcommand {\ofn} [2] [] { #1 \{ #2 \} }
 
 % Borders
 
-\newcommand {\Vborder} [1] [] { \vertex{\partial_{#1}} } % Boundary vertices of vertex cutset.
-\newcommand {\Eborder} [1] [] { \edge{\delta_{#1}} } % Crossing edges of vertex cutset.
-\newcommand {\Edborder} [1] [] { \edge{\partial_{#1}} } % Boundary dual vertices of dual vertex cutset.
-\newcommand {\Vdborder} [1] [] { \vertex{\delta_{#1}} } % Crossing dual edges of dual vertex cutset.
+\newcommand {\Vb} [1] [] { \vertex{\partial_{#1}} } % Boundary vertices of vertex cutset.
+\newcommand {\Eb} [1] [] { \edge{\delta_{#1}} } % Crossing edges of vertex cutset.
+\newcommand {\Edb} [1] [] { \edge{\partial_{#1}} } % Boundary dual vertices of dual vertex cutset.
+\newcommand {\Vdb} [1] [] { \vertex{\delta_{#1}} } % Crossing dual edges of dual vertex cutset.
+\newcommand {\Ib} [1] [] { \graph{\delta_{#1}} } % Crossing incidences of mixed (V, E) cutset.
+\newcommand {\Xb} [1] [] { \mixed{\partial_{#1}} } % Mixed boundary (V, E) of mixed (V, E) cutset.
 
-\newcommand {\Eborderof} [2] [] { \Eborder\induced[#1]{#2} }
-\newcommand {\Vdborderof} [2] [] { \Vdborder\induced[#1]{#2} }
+% Borders - definitions
 
-\newcommand {\Vborderdef} { \Vborder(\Vh) \defeq \setwhere{\v \in \Vh}{\bigexists_{\u \in \Vhc} \adj{\u}{\v}} }
-\newcommand {\Eborderdef} { \Eborder(\Vh) \defeq \setwhere{\e \in \E}{\e \cap \Vh \neq \varnothing \land \e \cap \Vhc \neq \varnothing} }
-\newcommand {\Edborderdef} { \Edborder(\Eh) \defeq \setwhere{\e \in \Eh}{\e \cap \bigcup \Ehc \neq \varnothing} }
-\newcommand {\Vdborderdef} { \Vdborder(\Eh) \defeq \setwhere{\v \in \V}{\Eh{[\v]} \neq \varnothing \land \Ehc{[\v]} \neq \varnothing} }
-
-% Components
-
-\newcommand {\Vcomp} { \vertex{\pi} } % Vertices of the connected components.
-\newcommand {\Ecomp} { \edge{\pi} } % Edges of the connected components.
-
-\newcommand {\Vcompdef} [2] [1] { \Vcomp(\H) = \Vs[#1]{#2} }
-\newcommand {\Ecompdef} [2] [1] { \Ecomp(\Hd) = \Es[#1]{#2} }
-
-% Clusterings
-
-\newcommand {\CV} [1] [] { \vertex{\mathcal{V}_{#1}} }
-\newcommand {\CVp} [1] [] { \vertex{\mathcal{V}_{#1}'} }
-\newcommand {\CVpp} [1] [] { \vertex{\mathcal{V}_{#1}''} }
-\newcommand {\CVh} [1] [] { \vertex{\hat{\mathcal{V}}_{#1}} }
-\newcommand {\CVhp} [1] [] { \vertex{\hat{\mathcal{V}}_{#1}'} }
-\newcommand {\CVhpp} [1] [] { \vertex{\hat{\mathcal{V}}_{#1}''} }
-
-\newcommand {\CE} [1] [] { \edge{\mathcal{E}_{#1}} }
-\newcommand {\CEp} [1] [] { \edge{\mathcal{E}_{#1}'} }
-\newcommand {\CEpp} [1] [] { \edge{\mathcal{E}_{#1}''} }
-\newcommand {\CEh} [1] [] { \edge{\hat{\mathcal{E}}_{#1}} }
-\newcommand {\CEhp} [1] [] { \edge{\hat{\mathcal{E}}_{#1}'} }
-\newcommand {\CEhpp} [1] [] { \edge{\hat{\mathcal{E}}_{#1}''} }
-
-\newcommand {\CVdef} [2] [1] { \CV = \Vs[#1]{#2} }
-\newcommand {\CEdef} [2] [1] { \CE = \Es[#1]{#2} }
-
-\newcommand {\class} [2] [] { [#2]_{#1} } % Equivalence class
-
-% Colourings
-
-\newcommand {\Vcol} [1] [] { \vertex{\sigma_{#1}} }
-\newcommand {\Vpcol} [1] [] { \vertex{\sigma_{#1}'} }
-\newcommand {\Vppcol} [1] [] { \vertex{\sigma_{#1}''} }
-\newcommand {\Vhcol} [1] [] { \vertex{\hat{\sigma}_{#1}} }
-\newcommand {\Vhpcol} [1] [] { \vertex{\hat{\sigma}_{#1}'} }
-\newcommand {\Vhppcol} [1] [] { \vertex{\hat{\sigma}_{#1}''} }
-
-\newcommand {\Ecol} [1] [] { \edge{\rho_{#1}} }
-\newcommand {\Epcol} [1] [] { \edge{\rho_{#1}'} }
-\newcommand {\Eppcol} [1] [] { \edge{\rho_{#1}''} }
-\newcommand {\Ehcol} [1] [] { \edge{\hat{\rho}_{#1}} }
-\newcommand {\Ehpcol} [1] [] { \edge{\hat{\rho}_{#1}'} }
-\newcommand {\Ehppcol} [1] [] { \edge{\hat{\rho}_{#1}''} }
-
-\newcommand {\Vcoldef} [2] [] { \deffn{\Vcol[#1]}{\V}{\until{#2}} }
-\newcommand {\Vparcoldef} [2] [] { \defparfn{\Vcol[#1]}{\V}{\until{#2}} }
-
-\newcommand {\Ecoldef} [2] [] { \deffn{\Ecol[#1}{\E}{\until{#2}} }
-\newcommand {\Ecolpartial} [2] [] { \defparfn{\Ecol[#1}{\E}{\until{#2}} }
+\newcommand {\Vbdef} { \Vb(\Vh) \df \setwhere{\v \in \Vh}{\bigexists_{\u \in \Vhc} \adj{\u}{\v}} }
+\newcommand {\Ebdef} { \Eb(\Vh) \df \setwhere{\e \in \E}{\e \cap \Vh \neq \varnothing \land \e \cap \Vhc \neq \varnothing} }
+\newcommand {\Edbdef} { \Edb(\Eh) \df \setwhere{\e \in \Eh}{\e \cap \bigcup \Ehc \neq \varnothing} }
+\newcommand {\Vdbdef} { \Vdb(\Eh) \df \setwhere{\v \in \V}{\Eh{[\v]} \neq \varnothing \land \Ehc{[\v]} \neq \varnothing} }
+\newcommand {\Ibdef} { \Ib(\Xh) \df \setwhere{\ve \in \I}{\v \in \Xh \oplus \e \in \Xh} }
+\newcommand {\Xbdef} { \Xb(\Xh) \df \setwhere{\x \in \Xh}{\bigexists_{\y \in \Xhc} \x \in \y \lor \y \in \x} }
 
 % Cut costs
 
-\newcommand {\Vcost} { \vertex{\nu} } % Vertex cost
-\newcommand {\Ecost} { \edge{\mu} } % Edge cost
-\newcommand {\Edcost} { \edge{\nu} } % Dual vertex cost
-\newcommand {\Vdcost} { \vertex{\mu} } % Dual edge cost
+\newcommand {\Vcost} [1] [] { \vertex{\nu_{#1}} } % Vertex cost: 2^V -> R
+\newcommand {\Ecost} [1] [] { \edge{\mu_{#1}} } % Edge cost: 2^V -> R
+\newcommand {\Edcost} [1] [] { \edge{\nu_{#1}} } % Dual vertex cost: 2^E -> R
+\newcommand {\Vdcost} [1] [] { \vertex{\mu_{#1}} } % Dual edge cost: 2^E -> R
+\newcommand {\Icost} [1] [] { \graph{\mu_{#1}} } % Incidence cost: 2^(V × E) -> R
+\newcommand {\Xcost} [1] [] { \mixed{\nu_{#1}} } % Mixed cost: 2^(V ∪ E) -> R
 
-\newcommand {\Ecostdef} { \Ecost(\Vh) \defeq \Ew(\Eborder(\Vh)) }
-\newcommand {\Vdcostdef} { \Vdcost(\Eh) \defeq \Vw(\Vdborder(\Eh)) }
+\newcommand {\Vpcost} [1] [] { \vertex{\nu_{#1}'} } % Alternative vertex cost
+\newcommand {\Epcost} [1] [] { \edge{\mu_{#1}'} } % Alternative edge cost
 
-\newcommand {\modularity} { \function{Q} }
+\newcommand {\modularity} [1] [] { \function{Q_{#1}} }
 
-% Operators
+% Cut costs - definitions
 
-\newcommand {\dual} [1] { \graph{{#1}^{*}} }
-\newcommand {\dualdual} [1] { \graph{{#1}^{**}} }
+\newcommand {\Ecostdef} [1] [] { \Ecost[#1](\Vh) \df \Ew[#1](\Eb[#1](\Vh)) }
+\newcommand {\Vdcostdef} [1] [] { \Vdcost[#1](\Eh) \df \Vw[#1](\Vdb[#1](\Eh)) }
 
-\DeclareMathOperator {\Inc} {Inc} % Convert hypergraph to incidence graph.
-\DeclareMathOperator {\Hyp} {Hyp} % Convert incidence graph to hypergraph.
+% Graph size
 
-\newcommand {\Incdef} { \Inc\VE \defeq (\VcupE, \I) }
-\newcommand {\Hypdef} { \Hyp(\VcupE, \I) \defeq (\V, \bagwhere{\setwhere{\v}{\ve \in \I}}{\e \in \E}) }
+\newcommand {\Vsize} [1] [] { \vertex{n_{#1}} } % Number of vertices.
+\newcommand {\Edsize} [1] [] { \edge{n_{#1}} } % Number of dual vertices.
+\newcommand {\Xsize} [1] [] { \mixed{n_{#1}} } % Number of vertex/edgex in incidence graph.
+\newcommand {\Esize} [1] [] { \edge{m_{#1}} } % Number of edges.
+\newcommand {\Vdsize} [1] [] { \vertex{m_{#1}} } % Number of dual edges.
+\newcommand {\Isize} [1] [] { \graph{m_{#1}} } % Number of incidences in incidence graph.
+
+% Degree and rank
+
+\newcommand {\degmin} { \graphop{\delta} } % Min vertex degree in graph.
+\newcommand {\degmax} { \graphop{\Delta} } % Max vertex degree in graph.
+\newcommand {\degavg} { \graphop{\bar{d}} } % Average vertex degree in graph.
+
+\newcommand {\rankmin} { \graphop{s} } % Min size of hyperedge in hypergraph.
+\newcommand {\rank} { \graphop{r} } % Max size of hyperedge in hypergraph.
+\newcommand {\rankavg} { \graphop{\bar{r}} } % Average size of hyperedge in hypergraph.
+
+% Duality
+
+\newcommand {\dual} [1] { {#1}^{\graph{*}} }
+\newcommand {\dualdual} [1] { {#1}^{\graph{**}} }
+
+\DeclareMathOperator {\LineGraph} { \graphop{L} } % Line graph of hypergraph.
+\newcommand {\LineGraphdef} { \LineGraph(\G) \df \CliqueExp(\dual{\G}) }
+
+% Expansions
+
+\DeclareMathOperator {\CliqueExp} { \graphop{C} } % Clique expansion of hypegraph.
+\DeclareMathOperator {\StarExp} { \graphop{S} } % Star expansion of hypergraph.
+
+\newcommand {\CliqueExpdef} {
+    \CliqueExp(\H) \df (\V, \setwhere{\ep}{\e \in \E \land \ep \subseteq \e \land \abs{\ep} = 2})
+}
+
+\newcommand {\StarExpdef} {
+    \StarExp(\H) \df (\X, \I)
+}
+
+% Incidence graphs
+
+\DeclareMathOperator {\IncGraph} { \graphop{B} } % Incidence graph of a graph.
+\newcommand {\IncGraphdef} { \IncGraph\VE \df (\VcupE, \Inc) }
+
+% Miscellaneous
+
+\newcommand {\compl} {\mathsf{c}} % Set complement.

@@ -1,58 +1,123 @@
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-collections}
+% Package definition
 
-\RequirePackage{stmaryrd}
-\RequirePackage{SwagTeX/modules/colours}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-collections}
+
+% External dependencies
+
+\RequirePackage {
+    extarrows,
+    stmaryrd,
+}
+
+% Internal dependencies
+
+\RequirePackage {
+    SwagTeX/modules/colours,
+    SwagTeX/modules/operators,
+}
 
 % Colours
 
 \newcommand {\arr} [1] { \col{array}{#1} }
 
-% Set construction
+% Set construction {...}
 
-\newcommand {\set} [1] { \left\{ #1 \!\:\right\} } % Set with elements.
-\newcommand {\setwhere} [2] { \set{#1 \where #2} } % Set with condition.
+\newcommand {\set} [1] { \left\{ #1 \!\:\right\}  } % Set with elements.
+\newcommand {\setwhere} [2] { \set{\where{#1}{#2}} } % Set with condition after bar.
+\newcommand {\setsub} [2] { \set{#1}_{#2} } % Set with condition in subscript.
 \newcommand {\setbtw} [2] { \set{\btw{#1}{#2}} } % Set with endpoints.
+\newcommand {\setbtwsub} [3] [1] { \set{\btwsub[#1]{#2}{#3}} } % Set with parameterised endpoints.
 
-% Multiset construction
+% Multiset construction [[...]]
 
 \newcommand {\bag} [1] { \left\llbracket \, #1 \, \right\rrbracket } % Multiset with elements.
-\newcommand {\bagwhere} [2] { \bag{#1 \where #2} } % Multiset with condition.
+\newcommand {\bagwhere} [2] { \bag{\where{#1}{#2}} } % Multiset with condition after bar.
+\newcommand {\bagsub} [2] { \bag{#1}_{#2} } % Multiset with condition in subscript.
 \newcommand {\bagbtw} [2] { \bag{\btw{#1}{#2}} } % Multiset with endpoints.
+\newcommand {\bagbtwsub} [3] [1] { \bag{\btwsub[#1]{#2}{#3}} } % Multiset with parameterised endpoints.
 
-% Tuple construction
+% Tuple construction (...)
 
 \newcommand {\tuple} [1] { \left( #1 \right) } % Tuple with elements.
-\newcommand {\tuplewhere} [2] { \tuple{#1 \where #2} } % Tuple with condition.
+\newcommand {\tuplewhere} [2] { \tuple{\where{#1}{#2}} } % Tuple with condition after bar.
+\newcommand {\tuplesub} [2] { \settuple_{#2} } % Tuple with condition in subscript.
 \newcommand {\tuplebtw} [2] { \tuple{\btw{#1}{#2}} } % Tuple with endpoints.
+\newcommand {\tuplebtwsub} [3] [1] { \tuple{\btwsub[#1]{#2}{#3}} } % Tuple with parameterised endpoints.
 
-% Sequence construction
+% Sequence construction [...]
 
 \newcommand {\seq} [1] { \left[ #1 \right] } % Sequence with elements.
-\newcommand {\seqwhere} [2] { \seq{#1 \where #2} } % Sequence with condition.
+\newcommand {\seqwhere} [2] { \seq{\where{#1}{#2}} } % Sequence with condition after bar.
+\newcommand {\seqsub} [2] { \seq{#1}_{#2} } % Sequence with condition in subscript.
 \newcommand {\seqbtw} [2] { \seq{\btw{#1}{#2}} } % Sequence with endpoints.
+\newcommand {\seqbtwsub} [3] [1] { \seq{\btwsub[#1]{#2}{#3}} } % Sequence with parameterised endpoints.
+
+% Angled construction <...>
+
+\newcommand {\angled} [1] { \left\langle #1 \right\rangle } % Angled with elements.
+\newcommand {\angledwhere} [2] { \angled{\where{#1}{#2}} } % Angled with condition after bar.
+\newcommand {\angledsub} [2] { \angled{#1}_{#2} } % Angled with condition in subscript.
+\newcommand {\angledbtw} [2] { \angled{\btw{#1}{#2}} } % Angled with endpoints.
+\newcommand {\angledbtwsub} [3] [1] { \angled{\btwsub[#1]{#2}{#3}} } % Angled with parameterised endpoints.
 
 % Vectors
 
-\renewcommand {\vector} [1] { \arr{\vec{#1}} }
-\newcommand {\vecat} [2] { \arr{{#1}_{#2}} }
-\newcommand {\vecrange} [3] { \arr{\vec{#1}_{#2:#3}} }
+\renewcommand {\vector} [2] [] { \arr{\vec{#2}_{#1}} } % Format variable as vector with colour and arrow atop.
+\newcommand {\vecat} [2] { \arr{{#1}_{#2}} } % A component of a vector.
+\newcommand {\vecrange} [3] { \arr{\vec{#1}_{#2:#3}} } % A contiguous subvector of a vector.
 
-\newcommand {\veccol} [1] { \BMatrix{#1} }
-\newcommand {\vecbtw} [2] { \colvec{#1 \\ \vdots \\ #2} }
+% Column vectors
 
-% Angled construction
-
-\newcommand {\angled} [1] { \left\langle #1 \right\rangle } % Angled with elements.
-\newcommand {\angledwhere} [2] { \angled{#1 \where #2} } % Angled with condition.
-\newcommand {\angledbtw} [2] { \angled{\btw{#1}{#2}} } % Angled with endpoints.
+\newcommand {\colvec} [2] [] { \BMatrix{#2}_{#1} } % Column vector with elements.
+\newcommand {\vecbtw} [2] { \colvec{#1 \\ \vdots \\ #2} } % Column vector with endpoints.
+\newcommand {\vecbtwsub} [3] [1] { \colvec{#3[#1] \\ \cdots #3[#2]} } % Colum vector with parameterised endpoints.
 
 % Intervals
 
-\newcommand {\interval} [2] { \seq{#1 : #2} } % Interval from endpoints.
-\newcommand {\until} [1] { \seq{#1} } % Interval from 1.
+\newcommand {\interval} [3] [] { \seq{#2,\, #3}_{#1} } % Interval.
+\newcommand {\Uinterval} [3] [] { \angled{#2,\, #3}_{#1} } % Unordered interval.
 
-% Parts
+\newcommand {\Rinterval} [2] { \interval[\R]{#1}{#2} } % Real interval.
+\newcommand {\Zinterval} [2] { \interval[\Z]{#1}{#2} } % Integer interval.
+\newcommand {\Ninterval} [2] { \interval[\N]{#1}{#2} } % Natural interval.
+\newcommand {\RUinterval} [2] { \Uinterval[\R]{#1}{#2} } % Unordered real interval.
+\newcommand {\ZUinterval} [2] { \Uinterval[\Z]{#1}{#2} } % Unordered integer interval.
+\newcommand {\NUinterval} [2] { \Uinterval[\N]{#1}{#2} } % Unordered number interval.
 
-\newcommand {\btw} [2] { #1, \dots, #2 } % Sequence with endpoints.
-\newcommand {\where} { \ \middle\vert \ } % Vertical bar for conditions.
+\newcommand {\until} [2] [] { \seq{#2}_{#1} } % Interval with implicit lower bound of 1.
+\newcommand {\Nuntil} [1] { \until[\N]{#1} } % Natural interval with implicit lower bound of 1.
+
+% Intervals - definitions
+
+\newcommand {\intervaldef} [1] [\F] {
+    \interval[#1]{a}{b} \df \setwhere{x \in #1}{a \leq x \leq b} \xlongequal{\text{if $a > b$}} \none
+}
+\newcommand {\Uintervaldef} [1] [\F] { \Uinterval[#1]{a}{b} \df \interval[#1]{\min(a, b)}{\max(a, b)} }
+
+\newcommand {\Rintervaldef} { \intervaldef[\R] }
+\newcommand {\Zintervaldef} { \intervaldef[\Z] }
+\newcommand {\Nintervaldef} { \intervaldef[\N] }
+\newcommand {\RUintervaldef} { \Uintervaldef[\R] }
+\newcommand {\ZUintervaldef} { \Uintervaldef[\Z] }
+\newcommand {\NUintervaldef} { \Uintervaldef[\N] }
+
+\newcommand {\untildef} [1] [\F] { \until[#1]{b} \df \interval[#1]{1}{b} }
+\newcommand {\Nuntildef} { \untildef[\N] }
+
+% Conditions
+
+\newcommand {\suchthat} { \ \middle\vert \ } % Vertical bar for conditions, only works inside (\left, \right) environment.
+\newcommand {\where} [2] { #1 \suchthat #2 } % Conditional statement, only works inside (\left, \right) environment.
+
+% Empty set
+
+\newcommand {\none} { \varnothing } % Empty set.
+\newcommand {\setnone} { \set{\none} } % Set of empty set.
+
+\newcommand {\isempty} [1] { #1 = \none } % Assert that a set is empty.
+\newcommand {\isnonempty} [1] { #1 \neq \none } % Assert that a set is non-empty.
+\newcommand {\disjoint} [2] { \isempty{#1 \cap #2} } % Assert that sets are disjoint.
+\newcommand {\intersecting} [2] { \nonempty{#1 \cap #2} } % Assert that sets are intersecting.
+\newcommand {\hasempty} [1] { \none \in #1 } % Assert that the empty set is contained within a set.
+\newcommand {\nonempty} [1] { #1 \wo \setnone } % Version of a set with the empty set removed.

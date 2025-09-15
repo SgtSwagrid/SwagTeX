@@ -1,14 +1,25 @@
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-functions}
+% Package definition
 
-\RequirePackage{amssymb}
-\RequirePackage{amsmath}
-\RequirePackage{SwagTeX/modules/colours}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{SwagTeX-functions}
+
+% External dependencies
+
+\RequirePackage {
+    amssymb,
+    amsmath,
+}
+
+% Internal dependencies
+
+\RequirePackage {
+    SwagTeX/modules/colours,
+}
 
 % Colours
 
 \newcommand {\function} [1] { \col{function}{#1} }
-\newcommand {\aux} [1] { \col{aux}{#1} } % For unimportant details that shouldn't stand out.
+\newcommand {\aux} [1] { \col{aux}{#1} } % Auxiliary, for unimportant details that shouldn't stand out.
 
 % Generic functions
 
@@ -19,7 +30,7 @@
 
 % Bijections
 
-\newcommand {\bijectionof} [2] { \aux{#1 (} #2 \aux{)} } % Bijection applied to some element.
+\newcommand {\bijectionof} [2] { \aux{#1 \left(} \col{text}{#2} \aux{\right)} } % Bijection applied to some element.
 
 \newcommand {\inv} [1] { \aux{{#1}^{-1}} } % Inverse of a bijection.
 
@@ -41,43 +52,42 @@
 
 % Weights
 
-\newcommand {\weight} [1] [] { \aux{\lambda_{#1}} } % Generic factor (lambda).
-\newcommand {\weightbar} [1] [] { \aux{\overline{\lambda}_{#1}} } % Generic factor (1 - lambda).
-\newcommand {\Weight} [1] [] { \aux{\Lambda_{#1}} }  % Generic factor (Lambda).
-\newcommand {\Weightbar} [1] [] { \aux{\overline{\Lambda}_{#1}} }  % Generic factor (1 - Lambda).
+\newcommand {\w} [1] [] { \aux{\lambda_{#1}} } % Generic factor (lambda).
+\newcommand {\wb} [1] [] { \aux{\overline{\lambda}_{#1}} } % Generic factor (1 - lambda).
+\newcommand {\W} [1] [] { \aux{\Lambda_{#1}} }  % Generic factor (Lambda).
+\newcommand {\Wb} [1] [] { \aux{\overline{\Lambda}_{#1}} }  % Generic factor (1 - Lambda).
 
-\newcommand {\weighttype} [1] [] { \weight[#1] \in \interval{0}{1} } % Definition of lambda in range [0, 1].
-\newcommand {\weightbardef} [1] [] { \weightbar[#1] \defeq 1 - \weight[#1] } % Definition of !lambda = 1 - lambda.
-\newcommand {\Weighttype} [1] [] { \Weight[#1] \in \interval{0}{1} } % Definition of Lambda in range [0, 1].
-\newcommand {\Weightbardef} [1] [] { \Weightbar[#1] \defeq 1 - \Weight[#1] } % Definition of !Lambda = 1 - Lambda.
+\newcommand {\wtype} [1] [] { \w[#1] \in \Rinterval{0}{1} } % Definition of lambda in range [0, 1].
+\newcommand {\wbdef} [1] [] { \wb[#1] \df 1 - \w[#1] } % Definition of !lambda = 1 - lambda.
+\newcommand {\Wtype} [1] [] { \W[#1] \in \Rinterval{0}{1} } % Definition of Lambda in range [0, 1].
+\newcommand {\Wbdef} [1] [] { \Wb[#1] \df 1 - \W[#1] } % Definition of !Lambda = 1 - Lambda.
 
 % Definitions
 
-\newcommand {\defeq} { \triangleq } % Define to be equal.
+\newcommand {\df} { \triangleq } % Define to be equal.
 
 % Function arrows
 
-\newcommand {\fn} { \to } % Function arrow.
-\newcommand {\inj} { \hookrightarrow } % Injective function arrow.
-\newcommand {\surj} { \twoheadrightarrow } % Surjective function arrow.
-\newcommand {\bij} { \leftrightarrow } % Bijective function arrow.
-\newcommand {\parfn} { \rightharpoonup } % Partial function arrow.
+\newcommand {\toinj} { \hookrightarrow } % Injective function arrow.
+\newcommand {\tosurj} { \twoheadrightarrow } % Surjective function arrow.
+\newcommand {\tobij} { \leftrightarrow } % Bijective function arrow.
+\newcommand {\someto} { \rightharpoonup } % Partial function arrow.
 
 % Function types
 
-\newcommand {\typefn} [2] { #1 \fn #2 } % Function type.
-\newcommand {\typeinj} [2] { #1 \inj #2 } % Injective function type.
-\newcommand {\typesurj} [2] { #1 \surj #2 } % Surjective function type.
-\newcommand {\typebij} [2] { #1 \bij #2 } % Bijective function type.
-\newcommand {\typeparfn} [2] { #1 \parfn #2 } % Partial function type.
+\newcommand {\fn} [2] { #1 \to #2 } % Function type.
+\newcommand {\inj} [2] { #1 \toinj #2 } % Injective function type.
+\newcommand {\surj} [2] { #1 \tosurj #2 } % Surjective function type.
+\newcommand {\bij} [2] { #1 \tobij #2 } % Bijective function type.
+\newcommand {\parfn} [2] { #1 \someto #2 } % Partial function type.
 
 % Function type definitions
 
-\newcommand {\deffn} [3] { \function{#1} : \typefn{#2}{#3} } % Function definition.
-\newcommand {\definj} [3] { \function{#1} : \typeinj{#2}{#3} } % Injective function definition.
-\newcommand {\defsurj} [3] { \function{#1} : \typesurj{#2}{#3} } % Surjective function definition.
-\newcommand {\defbij} [3] { \function{#1} : \typebij{#2}{#3} } % Bijective function definition.
-\newcommand {\defparfn} [3] { \function{#1} : \typeparfn{#2}{#3} } % Partial function definition.
+\newcommand {\deffn} [3] { \function{#1} : \fn{#2}{#3} } % Function definition.
+\newcommand {\definj} [3] { \function{#1} : \inj{#2}{#3} } % Injective function definition.
+\newcommand {\defsurj} [3] { \function{#1} : \surj{#2}{#3} } % Surjective function definition.
+\newcommand {\defbij} [3] { \function{#1} : \bij{#2}{#3} } % Bijective function definition.
+\newcommand {\defparfn} [3] { \function{#1} : \parfn{#2}{#3} } % Partial function definition.
 
 % Domain and rangle
 
@@ -85,3 +95,24 @@
 \DeclareMathOperator{\cod}{cod} % Codomain.
 \DeclareMathOperator{\ran}{ran} % Range.
 \DeclareMathOperator{\im}{im} % Image.
+
+% Signs
+
+\DeclareMathOperator{\sgn}{sgn} % Sign of a number (+, -, 0).
+\newcommand {\sgndiff} [2] { \sgn_{#1}^{#2} } % Sign of element from set symmetric difference (+, -, 0).
+
+\newcommand {\sgndef} {
+    \sgn(x) \df \Cases {
+        +1 &\ \text{if $x > 0$} \\
+        -1 &\ \text{if $x < 0$} \\
+        0 &\ \text{if $x = 0$}
+    }
+}
+
+\newcommand {\sgndiffdef} {
+    \sgndiff{\S}{\T}(\s) \df \Cases {
+        +1 &\ \text{if $\s \in \S \wo \T$} \\
+        -1 &\ \text{if $\s \in \T \wo \S$} \\
+        0 &\ \text{if $\s \notin \S \triangle \T$}
+    }
+}

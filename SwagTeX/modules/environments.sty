@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{SwagTex-environments}
+\ProvidesPackage{SwagTeX-environments}
 
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
@@ -9,9 +9,12 @@
 \RequirePackage{scrextend}
 \RequirePackage{tabu}
 \RequirePackage{enumitem}
+\RequirePackage{cleveref}
 \RequirePackage{ifthen}
 
 \theoremstyle{definition} % Don't use italics.
+
+\newcommand {\Document} [1] { \Env{document}{#1} }
 
 % Definition environments
 
@@ -44,6 +47,7 @@
 \newtheorem*{counterexample}{Counterexample}
 
 \newcommand {\Proof} [1] { \Env{proof}{#1} }
+\newcommand {\ProofOf} [2] { \Proof{of \cref{#1}: \\ #2} }
 \newcommand {\ProofLn} [1] { \Proof{\leavevmode\par #1} } % Proof beginning with new line.
 \newcommand {\Assumption} [1] { \Env{assumption}{#1} }
 \newcommand {\Contradiction} [1] { \Env{contradiction}{#1} }
@@ -75,36 +79,71 @@
 
 % List environments
 
+\newlist{lbullet}{enumerate}{2}
+\setlist[lbullet]{label=\textbullet}
+\newcommand {\listbullet} [2] [] { \EnvParam{lbullet}{#1}{#2} }
+\newcommand {\minilistbullet} [1] { \EnvParam{lbullet}{noitemsep}{#1} }
+\newcommand {\sublistbullet} [1] { \vspace{-5pt} \minilistbullet{#1} \vspace{-3pt} }
+
+\newlist{lnum}{enumerate}{2}
+\setlist[lnum]{label=\arabic*.}
+\newcommand {\listnum} [2] [] { \EnvParam{lnum}{#1}{#2} }
+\newcommand {\minilistnum} [1] { \EnvParam{lnum}{noitemsep}{#1} }
+\newcommand {\sublistnum} [1] { \vspace{-5pt} \minilistnum{#1} \vspace{-3pt} }
+
+\newlist{lalph}{enumerate}{2}
+\setlist[lalph]{label=\alph*.}
+\newcommand {\listalph} [2] [] { \EnvParam{lalph}{#1}{#2} }
+\newcommand {\minilistalph} [1] { \EnvParam{lalph}{noitemsep}{#1} }
+\newcommand {\sublistalph} [1] { \vspace{-5pt} \minilistalph{#1} \vspace{-3pt} }
+
+\newlist{lAlph}{enumerate}{2}
+\setlist[lAlph]{label=\Alph*.}
+\newcommand {\listAlph} [2] [] { \EnvParam{lAlph}{#1}{#2} }
+\newcommand {\minilistAlph} [1] { \EnvParam{lAlph}{noitemsep}{#1} }
+\newcommand {\sublistAlph} [1] { \vspace{-5pt} \minilistAlph{#1} \vspace{-3pt} }
+
+\newlist{lroman}{enumerate}{2}
+\setlist[lroman]{label=\roman*.}
+\newcommand {\listroman} [2] [] { \EnvParam{lroman}{#1}{#2} }
+\newcommand {\minilistroman} [1] { \EnvParam{lroman}{noitemsep}{#1} }
+\newcommand {\sublistroman} [1] { \vspace{-5pt} \minilistroman{#1} \vspace{-3pt} }
+
+\newlist{lRoman}{enumerate}{2}
+\setlist[lRoman]{label=\Roman*.}
+\newcommand {\listRoman} [2] [] { \EnvParam{lRoman}{#1}{#2} }
+\newcommand {\minilistRoman} [1] { \EnvParam{lRoman}{noitemsep}{#1} }
+\newcommand {\sublistRoman} [1] { \vspace{-5pt} \minilistRoman{#1} \vspace{-3pt} }
+
 \newcommand {\List} [2] [] {
-    \ifthenelse{\equal{#1}{b}} {\ListBullets{#2}} { % b = bullets
-        \ifthenelse{\equal{#1}{n}} {\ListNumbered{#2}} { % n = numbered
-            \ifthenelse{\equal{#1}{a}} {\ListAlphLower{#2}} { % a = lower alphabet
-                \ifthenelse{\equal{#1}{A}} {\ListAlphUpper{#2}} { % A = upper alphabet
-                    \ifthenelse{\equal{#1}{r}} {\ListRomanLower{#2}} { % r = lower roman
-                        \ifthenelse{\equal{#1}{R}} {\ListRomanUpper{#2}} { % R = upper roman
-                            \ListBullets{#2} % Default.
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+    \ifthenelse {\equal{#1}{b}} {\listbullet{#2}} { % b = bullet
+    \ifthenelse {\equal{#1}{n}} {\listnum{#2}} { % n = number
+    \ifthenelse {\equal{#1}{a}} {\listalph{#2}} { % a = lower alphabet
+    \ifthenelse {\equal{#1}{A}} {\listAlph{#2}} { % A = upper alphabet
+    \ifthenelse {\equal{#1}{r}} {\listroman{#2}} { % r = lower roman
+    \ifthenelse {\equal{#1}{R}} {\listRoman{#2}} { % R = upper roman
+    \listbullet{#2} % Default.
+}}}}}}}
 
-\newcommand {\ListBullets} [1] { \EnvParam{itemize}{}{#1} } % List with bullet points.
-\newcommand {\ListNumbered} [1] { \EnvParam{enumerate}{}{#1} } % List with numbers.
-\newcommand {\ListAlphLower} [1] { \EnvParam{enumerate}{label=\alph*.}{#1} } % List with lower-case letters.
-\newcommand {\ListAlphUpper} [1] { \EnvParam{enumerate}{label=\Alph*.}{#1} } % List with upper-case letters.
-\newcommand {\ListRomanLower} [1] { \EnvParam{enumerate}{label=\roman*.}{#1} } % List with lower-case roman numerals.
-\newcommand {\ListRomanUpper} [1] { \EnvParam{enumerate}{label=\Roman*.}{#1} } % List with upper-case roman numerals.
+\newcommand {\MiniList} [2] [] {
+    \ifthenelse {\equal{#1}{b}} {\minilistbullet{#2}} { % b = bullet
+    \ifthenelse {\equal{#1}{n}} {\minilistnum{#2}} { % n = number
+    \ifthenelse {\equal{#1}{a}} {\minilistalph{#2}} { % a = lower alphabet
+    \ifthenelse {\equal{#1}{A}} {\minilistAlph{#2}} { % A = upper alphabet
+    \ifthenelse {\equal{#1}{r}} {\minilistroman{#2}} { % r = lower roman
+    \ifthenelse {\equal{#1}{R}} {\minilistRoman{#2}} { % R = upper roman
+    \minilistbullet{#2} % Default.
+}}}}}}}
 
-\newcommand {\compact} {
-    \setlength{\itemsep}{0pt}
-    \setlength{\parskip}{0pt}
-    \setlength{\parsep}{0pt}
-}
-
-\newcommand {\TightList} [2] [] { \List[#1]{\compact #2} }
+\newcommand {\Sublist} [2] [] {
+    \ifthenelse {\equal{#1}{b}} {\sublistbullet{#2}} { % b = bullet
+    \ifthenelse {\equal{#1}{n}} {\sublistnum{#2}} { % n = number
+    \ifthenelse {\equal{#1}{a}} {\sublistalph{#2}} { % a = lower alphabet
+    \ifthenelse {\equal{#1}{A}} {\sublistAlph{#2}} { % A = upper alphabet
+    \ifthenelse {\equal{#1}{r}} {\sublistroman{#2}} { % r = lower roman
+    \ifthenelse {\equal{#1}{R}} {\sublistRoman{#2}} { % R = upper roman
+    \sublistbullet{#2} % Default.
+}}}}}}}
 
 % Didactic environments
 
@@ -237,6 +276,7 @@
 }
 
 \newcommand {\Section} [2] {
+    
     \noindent \textbf{#1:}
     \vspace{3pt}
     \Indent{#2}
